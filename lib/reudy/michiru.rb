@@ -148,7 +148,7 @@ module Gimite
       output = nil # 発言
       isCalled = false
       @myNicks.each do |nick|
-        isCalled = true if (input.index(nick))
+        isCalled = true if input.index(nick)
       end
       storeSimilarData(fromNick, input)
       study(input) if settings("disable_studying") != "true"

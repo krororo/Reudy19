@@ -58,13 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 Style/PerlBackrefs:
