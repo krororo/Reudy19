@@ -166,9 +166,7 @@ module Gimite
         # 質問が分からなかった場合は、そのまま訊き返す
         output = replaceNick(input, fromNick)
       end
-      if output
-        @client.speak(output)
-      end
+      @client.speak(output) if output
     end
   end
 end
