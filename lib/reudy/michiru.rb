@@ -72,7 +72,7 @@ module Gimite
       assocWordStrs = @associator.associateAll(inputWordStr)
       return nil unless assocWordStrs
       outputWordStr = nil
-      for wordStr in assocWordStrs
+      assocWordStrs.each do |wordStr|
         unless @recentWordStrs.include?(wordStr)
           outputWordStr = wordStr
           break
@@ -95,7 +95,7 @@ module Gimite
       else
         nicks0 = nicks.uniq.sort.reverse
         str = ""
-        for nick0 in nicks0
+        nicks0.each do |nick0|
           ct = nicks.select() { |x| x == nick0 }.size
           str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
         end
