@@ -27,7 +27,7 @@ module Gimite
     #ただし、@msgFilter.call(返事の番号)を満たすのが条件。
     #該当するものが無ければ[nil,0]を返す。
     #debugが真なら、デバッグ出力をする。
-    def responseTo(mid, debug = false)
+    def responseTo(mid, _debug = false)
       return [nil, 0] unless mid
       mid += @log.size if mid < 0
       return @cache[mid] if @cache[mid] && @msgFilter.call(@cache[mid].first) #キャッシュにヒット。

@@ -29,7 +29,7 @@ module Gimite
 
     #他人が発言した時にこれを呼ぶ。
     #発言率を返す。
-    def onOtherSpeak(from_nick, sentence, called)
+    def onOtherSpeak(from_nick, _sentence, called)
       updateRecentSpeakers(from_nick)
 
       #今回の発言率を求める。
@@ -50,7 +50,7 @@ module Gimite
     end
 
     #自分が発言した時にこれを呼ぶ。
-    def onSelfSpeak(usedWords)
+    def onSelfSpeak(_usedWords)
       updateRecentSpeakers("!")
     end
 

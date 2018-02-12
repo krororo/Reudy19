@@ -8,7 +8,7 @@ class WordExtractor
 
   POS_ID = [38,41,42,43,44,45,46,47] #単語として扱う品詞リスト
 
-  def initialize(candlistlength=7,onaddword=nil)
+  def initialize(_candlistlength=7,onaddword=nil)
     @onAddWord = onaddword
     @m = MeCab::Tagger.new
   end

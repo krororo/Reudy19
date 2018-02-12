@@ -153,7 +153,7 @@ module Gimite
     end
 
     #今いるチャンネルの外からの普通のメッセージ
-    def onExternalPriv(type, nick, to, mess)
+    def onExternalPriv(type, nick, _to, mess)
       return if nick == @nick || (!@user.settings[:respond_to_notice] && type != "PRIVMSG")
       @prevTime = Time.now
       if @user.settings[:respond_to_external]
@@ -166,7 +166,7 @@ module Gimite
     end
 
     #他人がJOINした
-    def onJoin(nick, channel)
+    def onJoin(nick, _channel)
       greeting = @user.settings[:private_greeting]
       sendmess("NOTICE #{nick} :#{greeting}\n") if greeting && !greeting.empty?
       @user.onOtherJoin(nick)
@@ -188,7 +188,7 @@ module Gimite
     end
 
     #招待された
-    def onInvite(nick, channel)
+    def onInvite(_nick, channel)
       moveChannel(channel)
     end
 

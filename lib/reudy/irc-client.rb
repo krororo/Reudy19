@@ -240,7 +240,7 @@ class IRCC
   end
 
   # 通常メッセージ受信時の処理
-  def on_priv(type,nick,mess)
+  def on_priv(_type,nick,mess)
     dispmess("<#{nick}>",mess)
   end
 

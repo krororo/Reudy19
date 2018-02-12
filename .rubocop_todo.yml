@@ -200,19 +200,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'lib/reudy/response_estimator.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/message_log.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/tango-mecab.rb'
-
 # Offense count: 1
 Lint/UselessAssignment:
   Exclude:

@@ -112,7 +112,7 @@ class Michiru
   end
 
   #類似発言検索用フィルタ
-  def similarFilter(lineN)
+  def similarFilter(_lineN)
     return true
   end
 
