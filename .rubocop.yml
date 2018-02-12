@@ -64,3 +64,6 @@ Style/RescueStandardError:
 
 Style/StringLiterals:
   Enabled: false
+
+Style/YodaCondition:
+  EnforcedStyle: equality_operators_only

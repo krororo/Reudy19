@@ -121,7 +121,7 @@ module Gimite
     end
   end
 
-  if __FILE__ == $PROGRAM_NAME
+  if $PROGRAM_NAME == __FILE__
     dir = ARGV[0]
     log = MessageLog.new(dir + "/log.dat")
     sim = SimilarSearcher.new(dir + "/db", log)

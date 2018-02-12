@@ -60,15 +60,6 @@ Security/YAMLLoad:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: all_comparison_operators, equality_operators_only
-Style/YodaCondition:
-  Exclude:
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/similar_searcher.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Style/ZeroLengthPredicate:
   Exclude:
     - 'lib/reudy/michiru.rb'
