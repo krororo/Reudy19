@@ -1,12 +1,12 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 
-require $REUDY_DIR + '/tango-mgm'
-require $REUDY_DIR + '/wordset'
-require $REUDY_DIR + '/word_searcher'
-require $REUDY_DIR + '/word_associator'
-require $REUDY_DIR + '/message_log'
-require $REUDY_DIR + '/similar_searcher5'
-require $REUDY_DIR + '/reudy_common'
+require_relative 'tango-mgm'
+require_relative 'wordset'
+require_relative 'word_searcher'
+require_relative 'word_associator'
+require_relative 'message_log'
+require_relative 'similar_searcher5'
+require_relative 'reudy_common'
 
 module Gimite
   # 人工無能ミチル

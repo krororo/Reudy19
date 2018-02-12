@@ -2,11 +2,9 @@
 # Modified by Glass_saga <glass.saga@gmail.com>
 
 # 文尾だけを使った類似判定。
-$REUDY_DIR = "." unless defined?($REUDY_DIR)
-
 require 'set'
-require $REUDY_DIR + '/reudy_common'
-require $REUDY_DIR + '/message_log'
+require_relative 'reudy_common'
+require_relative 'message_log'
 
 module Gimite
   # 類似発言検索器。
@@ -28,7 +26,7 @@ module Gimite
     include Gimite
 
     def initialize(fileName, log, db)
-      require "#{$REUDY_DIR}/#{db}"
+      require_relative db
       @log = log
       @log.addObserver(self)
       @compLen = 6 # 比較対象の文尾の長さ

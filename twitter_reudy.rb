@@ -1,7 +1,5 @@
 # Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
 
-$REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
-
 INTERVAL = 60 # タイムラインを取得する間隔
 ABORT_ON_API_LIMIT = false # API制限に引っかかった時にabortするかどうか
 
@@ -11,9 +9,9 @@ require 'optparse'
 require 'rubytter'
 require 'highline'
 require 'time'
-require $REUDY_DIR + '/bot_irc_client'
-require $REUDY_DIR + '/reudy'
-require $REUDY_DIR + '/reudy_common'
+require_relative 'lib/reudy/bot_irc_client'
+require_relative 'lib/reudy/reudy'
+require_relative 'lib/reudy/reudy_common'
 
 module Gimite
   class TwitterClient

@@ -1,15 +1,15 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-require $REUDY_DIR + '/wordset'
-require $REUDY_DIR + '/word_searcher'
-require $REUDY_DIR + '/message_log'
-require $REUDY_DIR + '/similar_searcher'
-require $REUDY_DIR + '/word_associator'
-require $REUDY_DIR + '/wtml_manager'
-require $REUDY_DIR + '/attention_decider'
-require $REUDY_DIR + '/response_estimator'
-require $REUDY_DIR + '/reudy_common'
+require_relative 'wordset'
+require_relative 'word_searcher'
+require_relative 'message_log'
+require_relative 'similar_searcher'
+require_relative 'word_associator'
+require_relative 'wtml_manager'
+require_relative 'attention_decider'
+require_relative 'response_estimator'
+require_relative 'reudy_common'
 require 'yaml'
 
 unless Encoding.default_external == __ENCODING__
@@ -29,13 +29,13 @@ module Gimite
       @db = db # 使用するDBの名前
       if mecab
         begin
-          require $REUDY_DIR + '/tango-mecab' # 単語の抽出にmecabを使用する
+          require_relative 'tango-mecab' # 単語の抽出にmecabを使用する
         rescue => ex
           warn ex.message
-          require $REUDY_DIR + '/tango-mgm'
+          require_relative 'tango-mgm'
         end
       else
-        require $REUDY_DIR + '/tango-mgm'
+        require_relative 'tango-mgm'
       end
       @fixedSettings = fixedSettings
       @settingPath = dir + '/setting.yml'

@@ -1,11 +1,9 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-$REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
-
 require 'optparse'
-require $REUDY_DIR + '/bot_irc_client'
-require $REUDY_DIR + '/reudy'
+require_relative 'lib/reudy/bot_irc_client'
+require_relative 'lib/reudy/reudy'
 
 module Gimite
   STDOUT.sync = true

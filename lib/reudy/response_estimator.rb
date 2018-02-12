@@ -1,12 +1,10 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-$REUDY_DIR = "." unless defined?($REUDY_DIR)
-
-require $REUDY_DIR + '/message_log'
-require $REUDY_DIR + '/wordset'
-require $REUDY_DIR + '/word_searcher'
-require $REUDY_DIR + '/reudy_common'
+require_relative 'message_log'
+require_relative 'wordset'
+require_relative 'word_searcher'
+require_relative 'reudy_common'
 
 module Gimite
   # 指定の発言への返事を推定する。

@@ -3,8 +3,8 @@
 
 require 'socket'
 require 'thread'
-require $REUDY_DIR + '/irc-client'
-require $REUDY_DIR + '/reudy_common'
+require_relative 'irc-client'
+require_relative 'reudy_common'
 
 module Gimite
   # ボット用のIRCクライアント

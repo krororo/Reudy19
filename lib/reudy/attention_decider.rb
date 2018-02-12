@@ -2,7 +2,7 @@
 # Modified by Glass_saga <glass.saga@gmail.com>
 
 # 文尾だけを使った類似判定。
-require $REUDY_DIR + '/reudy_common'
+require_relative 'reudy_common'
 
 module Gimite
   # 注目判定器。

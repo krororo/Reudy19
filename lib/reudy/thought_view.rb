@@ -1,6 +1,4 @@
-$REUDY_DIR = "." unless defined?($REUDY_DIR)
-
-require "./message_log"
+require_relative "message_log"
 require "ostruct"
 require "erb"
 
