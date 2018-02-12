@@ -195,14 +195,12 @@ module Gimite
     # ただし、ベース発言として使用できるものだけが対象。
     # 該当するものが無ければ[nil,0]を返す。
     def responseTo(mid, debug = false)
-      if @settings[:teacher_mode]
-        if isUsableBaseMsg(mid + 1) && @log[mid].fromNick == "!input"
-          return [mid + 1, 20]
-        else
-          return [nil, 0]
-        end
+      return @resEst.responseTo(mid, debug) unless @settings[:teacher_mode]
+
+      if isUsableBaseMsg(mid + 1) && @log[mid].fromNick == "!input"
+        [mid + 1, 20]
       else
-        return @resEst.responseTo(mid, debug)
+        [nil, 0]
       end
     end
 
@@ -231,12 +229,12 @@ module Gimite
       assoc_words.map! { |s| Word.new(s) }
       @newInputWords.concat(assoc_words)
       # 入力語の更新
-      unless @newInputWords.empty?
-        if rand(5).nonzero?
-          @inputWords.replace(@newInputWords)
-        else
-          @inputWords.concat(@newInputWords)
-        end
+      return if @newInputWords.empty?
+
+      if rand(5).nonzero?
+        @inputWords.replace(@newInputWords)
+      else
+        @inputWords.concat(@newInputWords)
       end
     end
 
@@ -420,13 +418,13 @@ module Gimite
           end
         end
       end
-      if output
-        # 最近使ったベース発言を更新
-        @recentBaseMsgNs.shift
-        @recentBaseMsgNs.push(baseMsgN)
-        output = replaceMyNicks(output, fromNick) # 発言中の自分のNickを相手のNickに変換
-        speak(origInput, output) # 実際に発言。
-      end
+      return unless output
+
+      # 最近使ったベース発言を更新
+      @recentBaseMsgNs.shift
+      @recentBaseMsgNs.push(baseMsgN)
+      output = replaceMyNicks(output, fromNick) # 発言中の自分のNickを相手のNickに変換
+      speak(origInput, output) # 実際に発言。
     end
 
     # 自由発話として発言する。
@@ -472,20 +470,19 @@ module Gimite
         @targetNickReg = /(?!)/
         return "物まねを解除する。"
       end
-      if input =~ /覚えさせた|教わった/ && input.include?("誰") && input =~ /「(.+?)」/
-        wordStr = $1
-        if (wordIdx = @wordSet.words.index(Word.new(wordStr)))
-          author = @wordSet.words[wordIdx].author
-          if !author.empty?
-            return "#{author}さんに。＞#{wordStr}"
-          else
-            return "不確定だ。＞#{wordStr}"
-          end
+      # 定型コマンドではない。
+      return nil unless input =~ /覚えさせた|教わった/ && input.include?("誰") && input =~ /「(.+?)」/
+      wordStr = $1
+      if (wordIdx = @wordSet.words.index(Word.new(wordStr)))
+        author = @wordSet.words[wordIdx].author
+        if !author.empty?
+          "#{author}さんに。＞#{wordStr}"
         else
-          return "その単語は記憶していない。"
+          "不確定だ。＞#{wordStr}"
         end
+      else
+        "その単語は記憶していない。"
       end
-      return nil # 定型コマンドではない。
     end
 
     # 通常の発言を学習。
@@ -519,14 +516,14 @@ module Gimite
 
     # 単語が追加された
     def onAddWord(wordStr)
-      if @wordSet.addWord(wordStr, @fromNick)
-        if @client
-          @client.outputInfo("単語「#{wordStr}」を記憶した。")
-        else
-          puts "単語「#{wordStr}」を記憶した。"
-        end
-        @wordSet.save if @autoSave
+      return unless @wordSet.addWord(wordStr, @fromNick)
+
+      if @client
+        @client.outputInfo("単語「#{wordStr}」を記憶した。")
+      else
+        puts "単語「#{wordStr}」を記憶した。"
       end
+      @wordSet.save if @autoSave
     end
 
     # 接続を開始した

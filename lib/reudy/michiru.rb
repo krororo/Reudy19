@@ -78,29 +78,23 @@ module Gimite
           break
         end
       end
-      if outputWordStr
-        addRecentWordStr(inputWordStr)
-        addRecentWordStr(outputWordStr)
-        return inputWordStr + "は" + outputWordStr + "です。"
-      else
-        return nil
-      end
+      return nil unless outputWordStr
+      addRecentWordStr(inputWordStr)
+      addRecentWordStr(outputWordStr)
+      return inputWordStr + "は" + outputWordStr + "です。"
     end
 
     # 指定の人の中の人を答える
     def innerPeople(nick)
       nicks = @similarNicksMap[nick]
-      if !nicks || nicks.size == 0
-        return nick + "の中の人はいません。"
-      else
-        nicks0 = nicks.uniq.sort.reverse
-        str = ""
-        nicks0.each do |nick0|
-          ct = nicks.select() { |x| x == nick0 }.size
-          str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
-        end
-        return nick + "の中の人は " + str + "です。"
+      return nick + "の中の人はいません。" if !nicks || nicks.size == 0
+      nicks0 = nicks.uniq.sort.reverse
+      str = ""
+      nicks0.each do |nick0|
+        ct = nicks.select() { |x| x == nick0 }.size
+        str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
       end
+      return nick + "の中の人は " + str + "です。"
     end
 
     # 学習する

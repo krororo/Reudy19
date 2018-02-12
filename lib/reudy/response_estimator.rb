@@ -40,13 +40,12 @@ module Gimite
       # 無ければ、直後の発言を返事とする。
       words.each do |word|
         word.mids.each do |n|
-          if n > mid
-            if n > mid + numTargets || (resMid && n >= resMid)
-              break
-            elsif candMids.include?(n)
-              resMid = n
-              break
-            end
+          next if n <= mid
+
+          break if n > mid + numTargets || (resMid && n >= resMid)
+          if candMids.include?(n)
+            resMid = n
+            break
           end
         end
       end

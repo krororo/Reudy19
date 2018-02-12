@@ -76,12 +76,12 @@ module Gimite
         warn "警告: 指定されたデータベースを利用できません。辞書を連想配列として保持する為、メモリを大量に消費します。"
         @tailMap = {}
       end
-      if @tailMap.empty?
-        warn "文尾辞書( #{fileName})を作成中..."
-        0.upto(@log.size.pred) do |i|
-          warn "#{i + 1}行目..." if ((i + 1) % 1000).zero?
-          recordTail(i)
-        end
+      return unless @tailMap.empty?
+
+      warn "文尾辞書( #{fileName})を作成中..."
+      0.upto(@log.size.pred) do |i|
+        warn "#{i + 1}行目..." if ((i + 1) % 1000).zero?
+        recordTail(i)
       end
     end
 

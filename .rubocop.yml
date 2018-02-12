@@ -48,3 +48,6 @@ Style/EmptyMethod:
 
 Style/FormatStringToken:
   Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 5

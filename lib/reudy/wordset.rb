@@ -53,18 +53,16 @@ module Gimite
     def addWord(str, author = "")
       return nil if str.empty?
       i = @words.find_index { |word| str.include?(word.str) }
-      if i && @words[i].str == str # 重複する単語があった場合
-        return nil
+      return nil if i && @words[i].str == str # 重複する単語があった場合
+
+      word = Word.new(str, author)
+      if i
+        @words.insert(i, word)
       else
-        word = Word.new(str, author)
-        if i
-          @words.insert(i, word)
-        else
-          @words.push(word)
-        end
-        @added_words.push(word)
-        return word
+        @words.push(word)
       end
+      @added_words.push(word)
+      return word
     end
 
     # ファイルに保存

@@ -40,12 +40,9 @@ module Gimite
       n += @size if n < 0 # 末尾からのインデックス
       File.open(@innerFileName) do |f|
         line = f.lines("\n---").find { f.lineno > n }
-        if line && line != "\n---"
-          m = YAML.load(line)
-          return Message.new(m[:fromNick], m[:body])
-        else
-          return nil
-        end
+        return nil unless line && line != "\n---"
+        m = YAML.load(line)
+        return Message.new(m[:fromNick], m[:body])
       end
     end
 

@@ -11,13 +11,13 @@ module Gimite
     end
 
     def loadFromFile
-      if File.exist?(@file_name)
-        File.open(@file_name) do |file|
-          file.each_line do |line|
-            line.chomp!
-            strs = line.split(/\t/)
-            @assoc_word_map[strs.first] = strs[1..-1] if strs.size >= 2
-          end
+      return unless File.exist?(@file_name)
+
+      File.open(@file_name) do |file|
+        file.each_line do |line|
+          line.chomp!
+          strs = line.split(/\t/)
+          @assoc_word_map[strs.first] = strs[1..-1] if strs.size >= 2
         end
       end
     end
