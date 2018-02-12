@@ -11,9 +11,9 @@ require $REUDY_DIR+'/reudy_common'
 
 module Gimite
   #指定の発言への返事を推定する。
-  class ResponseEstimator  
+  class ResponseEstimator
     include Gimite
-    
+
     def initialize(log, wordSearcher, msgFilter = proc{ |n| true }, wordFilter = proc{ |w| true })
       @cacheLimit = 40
       @log = log
@@ -22,7 +22,7 @@ module Gimite
       @wordFilter = wordFilter
       @cache = {}
     end
-    
+
     #mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
     #ただし、@msgFilter.call(返事の番号)を満たすのが条件。
     #該当するものが無ければ[nil,0]を返す。
@@ -38,7 +38,7 @@ module Gimite
       #この先の判定は重いので、先に「絶対nilになるケース」を除外。
       words = @wordSearcher.searchWords(@log[mid].body).select{ |w| @wordFilter.call(w) }
       resMid = nil
- 
+
       #その発言からnumTargets行以内で、同じ単語を含むものが有れば、それを返事とみなす。
       #無ければ、直後の発言を返事とする。
       words.each do |word|
@@ -56,16 +56,16 @@ module Gimite
       prob = resMid ? numTargets : 0 #同じ単語を含む方が、返事らしさが高い。
       resMid = candMids.first unless resMid
       prob += numTargets + 1 - (resMid-mid) #近い発言の方が、返事らしさが高い。
-      
+
       #キャッシュしておく。
       @cache.clear if @cache.size >= @cacheLimit
       @cache[mid] = [resMid, prob]
-     
+
       return [resMid, prob]
-    end 
+    end
   end
 
-  if __FILE__ == $PROGRAM_NAME 
+  if __FILE__ == $PROGRAM_NAME
     dir = ARGV[0]
     log = MessageLog.new(dir+"/log.dat")
     wordSet = WordSet.new(dir+"/words.dat")

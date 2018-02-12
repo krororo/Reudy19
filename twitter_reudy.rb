@@ -18,9 +18,9 @@ require $REUDY_DIR+'/reudy_common'
 
 module Gimite
   class TwitterClient
-    
+
     include(Gimite)
-    
+
     def initialize(user)
       @user = user
       @user.client = self
@@ -29,7 +29,7 @@ module Gimite
       key = user.settings[:twitter][:key]
       secret = user.settings[:twitter][:secret]
       cons = OAuth::Consumer.new(key, secret, :site => "http://api.twitter.com")
-  
+
       unless File.exist?(File.dirname(__FILE__)+"/token")
         request_token = cons.get_request_token
         puts "Access This URL and press 'Allow' => #{request_token.authorize_url}"
@@ -40,25 +40,25 @@ module Gimite
           f.puts access_token.secret
         end
       end
-  
+
       keys = File.read(File.dirname(__FILE__)+"/token").split(/\r?\n/).map(&:chomp)
-  
+
       token = OAuth::AccessToken.new(cons, keys[0], keys[1])
-  
+
       @r = OAuthRubytter.new(token)
     end
-    
+
     attr_accessor :r
-  
+
     def onTweet(status)
       @user.onOtherSpeak(status.user.screen_name, status.text)
     end
-    
+
     #補助情報を出力
     def outputInfo(s)
       puts "(#{s})"
     end
-    
+
     #発言する
     def speak(s)
       time = Time.now
@@ -69,29 +69,29 @@ module Gimite
       end
     end
   end
-  
+
   opt = OptionParser.new
-    
+
   directory = 'public'
   opt.on('-d DIRECTORY') do |v|
     directory = v
   end
-  
+
   db = 'pstore'
   opt.on('--db DB_TYPE') do |v|
     db = v
   end
-  
+
   mecab = nil
   opt.on('-m','--mecab') do |v|
     mecab = true
   end
-  
-  opt.parse!(ARGV)  
-  
+
+  opt.parse!(ARGV)
+
   #twitter用ロイディを作成
   client = TwitterClient.new(Reudy.new(directory,{},db,mecab))
-    
+
   loop do
     begin
       since_id = -1

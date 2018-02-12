@@ -3,13 +3,13 @@
 
 module Gimite
   #単語連想器
-  class WordAssociator  
+  class WordAssociator
     def initialize(file_name)
       @file_name = file_name
       @assoc_word_map = {}
       loadFromFile
     end
-    
+
     def loadFromFile
       if File.exists?(@file_name)
         File.open(@file_name) do |file|
@@ -21,7 +21,7 @@ module Gimite
         end
       end
     end
-    
+
     #1単語から連想された1単語を返す
     def associate(word_str)
       if strs = @assoc_word_map[word_str]
@@ -30,10 +30,10 @@ module Gimite
         nil
       end
     end
-    
+
     #1単語から連想された全ての単語を返す
     def associateAll(word_str)
       @assoc_word_map[word_str]
-    end  
+    end
   end
 end

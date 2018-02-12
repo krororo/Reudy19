@@ -11,7 +11,7 @@ require $REUDY_DIR+'/message_log'
 
 module Gimite
   #類似発言検索器。
-  class SimilarSearcher  
+  class SimilarSearcher
 =begin
     文尾@compLen文字が1文字違いの発言を類似発言とする。
     ただし、ひらがなと一部の記号のみが対象。
@@ -28,7 +28,7 @@ module Gimite
     は全てtrueになる。これを使って「文尾が同じor1文字違いの発言」を探す。
 =end
     include Gimite
-    
+
     def initialize(fileName, log, db)
       require "#{$REUDY_DIR}/#{db}"
       @log = log
@@ -36,7 +36,7 @@ module Gimite
       @compLen = 6 #比較対象の文尾の長さ
       makeDictionary(fileName)
     end
-    
+
     #inputに類似する各発言に対して、発言番号を引数にblockを呼ぶ。発言の順序は微妙にランダム。
     def eachSimilarMsg(input, &block)
       ws = normalizeMsg(input)
@@ -51,7 +51,7 @@ module Gimite
         randomEach(@tailMap[ws], &block)
       end
     end
-    
+
     #contの各要素について、ランダムな順序でblockを呼び出す。
     def randomEach(cont)
       if cont
@@ -60,17 +60,17 @@ module Gimite
         end
       end
     end
-    
+
     #発言が追加された。
     def onAddMsg
       recordTail(-1)
     end
-    
+
     #ログがクリアされた。
     def onClearLog
       @tailMap.clear
     end
-    
+
     #文尾辞書（@tailMap）を生成。
     def makeDictionary(fileName)
       begin
@@ -88,7 +88,7 @@ module Gimite
         end
       end
     end
-    
+
     #lineN番の発言の文尾を記録。
     def recordTail(line_n)
       ws = normalizeMsg(@log[line_n].body)
@@ -103,7 +103,7 @@ module Gimite
         addToTailMap(ws, line_n)
       end
     end
-    
+
     #@tailMapに追加。
     def addToTailMap(tail, line_n)
       line_n += @log.size if line_n < 0
@@ -114,7 +114,7 @@ module Gimite
         @tailMap[tail] = [line_n]
       end
     end
-    
+
     #発言から「ひらがなと一部の記号」以外を消し、記号を統一する。
     def normalizeMsg(s)
       s = s.gsub(/[^ぁ-んー−？！\?!\.]+/, "")
@@ -124,7 +124,7 @@ module Gimite
       s
     end
   end
-  
+
   if __FILE__ == $PROGRAM_NAME
     dir = ARGV[0]
     log = MessageLog.new(dir + "/log.dat")

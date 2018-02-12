@@ -10,34 +10,34 @@ module Gimite
       @author = author #単語を教えた人。
       @mids = mids #この単語を含む発言の番号。
     end
-  
+
     attr_accessor :str,:author,:mids
-    
+
     def ==(other)
       return @str == other.str
     end
-    
+
     def eql?(other)
       return @str == other.str
     end
-    
+
     def hash
       return @str.hash
     end
-    
+
     def <=>(other)
       return @str <=> other.str
     end
-    
+
     def inspect
       return "<Word: \"#{str}\">"
     end
   end
-  
+
   # 単語集
   class WordSet
     include Gimite, Enumerable
-    
+
     def initialize(filename)
       @filename = filename
       @added_words = []
@@ -45,9 +45,9 @@ module Gimite
         @words = YAML.load(f) || []
       end
     end
-  
+
     attr_reader :words
-    
+
     #単語を追加
     def addWord(str, author = "")
       return nil if str.empty?
@@ -65,28 +65,28 @@ module Gimite
         return word
       end
     end
-    
+
     #ファイルに保存
     def save
       File.open(@filename, "w") do |f|
         YAML.dump(@words, f)
       end
     end
-    
+
     #単語イテレータ
     def each
       @words.each
     end
-    
+
     #中身をテキスト形式で出力。
     def output(io)
       @words.each do |word|
         io.puts "#{word.str}\t#{word.author}\t#{word.mids.join(",")}"
       end
     end
-    
+
     private
-    
+
     #既存のファイルとかぶらないファイル名を作る。
     def makeNewFileName(base)
       return base unless File.exist?(base)

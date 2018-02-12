@@ -61,7 +61,7 @@ class WordExtractor
          /[^ぁ-ん][のとな]$/, # 助詞っぽいものを含む
          /^.+(?:が|は)/ # 先頭以外に「が」「は」を含む
       return nil
-    else 
+    else
       return word
     end
   end
@@ -96,7 +96,7 @@ class WordExtractor
     end
     return wordFilter2(word)
   end
-  
+
   # 文字列を単語として追加べきかを判定する
   # 追加すべき単語（wordとは異なる場合も）またはnil（不適）を返す
   def checkWord(word)
@@ -133,7 +133,7 @@ class WordExtractor
         result << cand if cand
       end
     end
-    
+
     return result
   end
 
@@ -158,12 +158,12 @@ class WordExtractor
     # 例えば「なると」という単語が登録される時に
     # 「なる」「ると」が同時に単語と認識されてしまうのを防ぐ。
     wordcand = optimizeWordList(wordcand) unless wordcand.empty?
-    
+
     # 禁則処理
     wordcand2 = wordcand.select{|word| checkWord(word) }
-    
+
     words = words | wordcand2 # 新しい単語を本当に単語として認定する。ただしダブる場合は片方を消す。
- 
+
     words.each{|w| @onAddWord.call(w) } if @onAddWord
 
     return words

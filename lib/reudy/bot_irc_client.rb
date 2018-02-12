@@ -11,9 +11,9 @@ module Gimite
   #ボット用のIRCクライアント
   class BotIRCClient < IRCC
     include Gimite
-    
+
     SILENT_SECOND = 20.0 #沈黙が続いたと判断する秒数。
-    
+
     def initialize(user, logOut = STDOUT)
       @user = user
       @isExitting = false
@@ -32,7 +32,7 @@ module Gimite
       }
       super(nil, option, __ENCODING__.to_s, logOut, @user.settings[:encoding] || "ISO-2022-JP")
     end
-    
+
     #IRCのメッセージをひたすら処理するループ。
     def processLoop
       loop do
@@ -70,13 +70,13 @@ module Gimite
         puts "再接続中..."
       end
     end
-    
+
     #補助情報を出力
     def outputInfo(s)
       sleep(@user.settings[:wait_before_info].to_f) if @user.settings[:wait_before_info]
       sendmess("NOTICE #{@infoChannel}  :#{s}\n")
     end
-    
+
     #発言する
     def speak(s)
       if @user.settings[:speak_with_privmsg]
@@ -85,7 +85,7 @@ module Gimite
         sendnotice(s)
       end
     end
-    
+
     #チャンネルを移動。接続中はこっちを使う。
     def moveChannel(channel)
       greeting = @user.settings[:leaving_message]
@@ -93,57 +93,57 @@ module Gimite
       @channel = channel
       movechannel(@channel)
     end
-    
+
     #チャンネルを変更。切断中はこっちを使う。
     def setChannel(channel)
       @channel = channel
       @irc_channel = channel
     end
-    
+
     def status=(status)
     end
-    
+
     #終了。
     def exit
       @isExitting = true
       greeting = @user.settings[:leaving_message]
       sendmess(greeting ? "QUIT :#{greeting}\r\n" : "QUIT\r\n")
     end
-    
+
     #以下、IRCCのメソッドのオーバライド
-    
+
     def on_priv(type, nick, mess)
       super(type, nick, mess)
       onPriv(type, nick, mess)
     end
-    
+
     def on_external_priv(type, nick, to, mess)
       super(type, nick, to, mess)
       onExternalPriv(type, nick, to, mess)
     end
-    
+
     def on_join(nick, channel)
       super(nick, channel)
       onJoin(nick, channel)
     end
-    
+
     def on_myjoin(channel)
       #IRCC#on_myjoinの中ではon_joinが呼ばれてしまうので、
       #ここでsuperを呼んではいけない。
       onMyJoin(channel)
     end
-    
+
     def on_myinvite(nick, channel)
       super(nick, channel)
       onInvite(nick, channel)
     end
-    
+
     def on_error(code)
       onError(code)
     end
-    
+
     #以下、派生クラスでオーバライド可能なメソッド
-    
+
     #普通のメッセージ
     def onPriv(type, nick, mess)
       if nick != @nick && (@user.settings[:respond_to_notice] || type == "PRIVMSG")
@@ -151,7 +151,7 @@ module Gimite
         @receiveQue.push([nick, mess.strip])
       end
     end
-    
+
     #今いるチャンネルの外からの普通のメッセージ
     def onExternalPriv(type, nick, to, mess)
       return if nick == @nick || (!@user.settings[:respond_to_notice] && type != "PRIVMSG")
@@ -164,14 +164,14 @@ module Gimite
         @receiveQue.push([nick, mess.strip])
       end
     end
-    
+
     #他人がJOINした
     def onJoin(nick, channel)
       greeting = @user.settings[:private_greeting]
       sendmess("NOTICE #{nick} :#{greeting}\n") if greeting && !greeting.empty?
       @user.onOtherJoin(nick)
     end
-    
+
     #自分がJOINした
     def onMyJoin(channel)
       channel.strip!
@@ -182,22 +182,22 @@ module Gimite
         @user.onSelfJoin
       end
       unless @isJoiningInfoChannel
-        sendmess("JOIN #{@infoChannel}\r\n") 
+        sendmess("JOIN #{@infoChannel}\r\n")
         @isJoiningInfoChannel = true
       end
     end
-    
+
     #招待された
     def onInvite(nick, channel)
       moveChannel(channel)
     end
-    
+
     #再接続の前に呼び出される。
     #falseを返すと、再接続せずに終了する。
     def queryReconnect
       return true
     end
-    
+
     #エラー
     def onError(code)
       if code == "433" #ERR_NICKNAMEINUSE ニックネームはすでに使用されている
@@ -207,9 +207,9 @@ module Gimite
       end
       sendmess("QUIT\r\n") #一度QUITして再接続。
     end
-    
+
     private
-    
+
     #受信してキューにたまっている発言を処理する。
     def receiveProcess
       while args = popMessage
@@ -228,7 +228,7 @@ module Gimite
         end
       end
     end
-    
+
     #受信してキューにたまっている発言を取り出す。
     #制御発言があれば優先して処理する。
     def popMessage
@@ -238,7 +238,7 @@ module Gimite
         return mess if mess != :nop
       end
     end
-    
+
     #定期的に意味の無いメッセージを送り、通信が切れてないか確かめる。
     #通信が切れたら、sock.getsのブロック状態を解除させるためにsock.closeする。
     def pingProcess

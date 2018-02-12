@@ -297,7 +297,7 @@ class IRCC
   def on_myinvite(nick,channel)
     dispmess(nick,"INVITE #{channel}")
   end
-  
+
   # エラーの時の処理
   def on_error(code)
     @disp.puts "Error: #{code}"

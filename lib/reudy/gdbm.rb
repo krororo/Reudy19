@@ -9,29 +9,29 @@ module Gimite
     def initialize(file_name)
       @gdbm = GDBM.new(file_name, 0666, GDBM::FAST)
     end
-    
+
     def [](key)
       str = @gdbm[key]
       return str && Marshal.load(str).freeze
       #オブジェクトの中身を変更されてもDBに反映できないので、freeze()しておく
     end
-    
+
     def []=(key, value)
       @gdbm[key] = Marshal.dump(value)
     end
-    
+
     def keys
       @gdbm.keys
     end
-    
+
     def empty?
       @gdbm.empty?
     end
-    
+
     def clear
       @gdbm.clear
     end
-    
+
     def close
       @gdbm.close
     end

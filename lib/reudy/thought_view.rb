@@ -6,7 +6,7 @@ require "erb"
 
 module Gimite
   log = MessageLog.new(ARGV[0] + "/log.dat")
-  
+
   data = []
   File.open(ARGV[0] + "/thought.txt") do |f|
     f.each_line do |line|
@@ -28,9 +28,9 @@ module Gimite
       data.push(r)
     end
   end
-  
+
   extend(ERB::Util)
-  
+
   template = File.open("thought_view.html").read
   ERB.new(template).run(binding)
 end

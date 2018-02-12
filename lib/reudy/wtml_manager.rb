@@ -14,20 +14,20 @@ module Gimite
       @wordSearcher = wordSearcher
       @log.addObserver(self)
     end
-    
+
     def onAddMsg
       msgN = @log.size - 1
       @wordSearcher.searchWords(@log[msgN].body).each do |word|
         word.mids.push(msgN)
       end
     end
-    
+
     def onClearLog
       @wordSet.words.each do |word|
         word.mids.clear
       end
     end
-    
+
     #単語wordにmidsを付ける。
     def attachMsgList(word)
       word.mids = []

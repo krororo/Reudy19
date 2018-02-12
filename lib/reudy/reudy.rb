@@ -22,10 +22,10 @@ end
 module Gimite
   class Reudy
     include Gimite
-    
+
     def initialize(dir, fixedSettings = {},db="pstore",mecab=nil)
       @attention = nil
-       
+
       #設定を読み込む。
       @db = db #使用するDBの名前
       if mecab
@@ -43,7 +43,7 @@ module Gimite
       @settings = {}
       loadSettings
       @autoSave = !@settings[:disable_auto_saving]
-      
+
       #働き者のオブジェクト達を作る。
       @log = MessageLog.new(dir + '/log.yml')
       @log.addObserver(self)
@@ -57,7 +57,7 @@ module Gimite
       @attention = AttentionDecider.new
       @attention.setParameter(attentionParameters)
       @resEst = ResponseEstimator.new(@log, @wordSearcher, method(:isUsableBaseMsg), method(:canAdoptWord))
-      warn "単語ロード終了"    
+      warn "単語ロード終了"
       #その他インスタンス変数の初期化。
       @client = nil
       @lastSpeachInput = nil
@@ -69,10 +69,10 @@ module Gimite
       @recentBaseMsgNs = Array.new(@repeatProofCt) #最近使ったベース発言番号
       @thoughtFile = open(dir + "/thought.txt", "a") #思考過程を記録するファイル
       @thoughtFile.sync = true
-      
+
       setWordAdoptBorder
     end
-    
+
     #設定をファイルからロード
     def loadSettings
       File.open(@settingPath) do |file|
@@ -84,17 +84,17 @@ module Gimite
       #これにマッチしないNickの発言は、ベース発言として使用不能
       if @settings[:forbidden_nick] && !@settings[:forbidden_nick].empty?
         @forbiddenNickReg = Regexp.new(@settings[:forbidden_nick], Regexp::IGNORECASE)
-      else 
+      else
         @forbiddenNickReg = /(?!)/o #何にもマッチしない正規表現
       end
       @myNicks = @settings[:nicks] #これにマッチするNickの発言は、ベース発言として使用不能
       @my_nicks_regexp = Regexp.new(@myNicks.map{|n| Regexp.escape(n) }.join("|"))
       changeMode(@settings[:default_mode].to_i) #デフォルトのモードに変更
     end
-    
+
     #チャットクライアントの指定
     attr_accessor :client,:settings
-    
+
     #モードを変更
     def changeMode(mode)
       return false if mode == @mode
@@ -103,11 +103,11 @@ module Gimite
       updateStatus
       return true
     end
-    
+
     def updateStatus
       @client.status = ["沈黙", "寡黙", nil, "饒舌"][@mode] if @client
     end
-    
+
     #注目判定器に与えるパラメータ。
     def attentionParameters
       case @mode
@@ -158,7 +158,7 @@ module Gimite
           }
       end
     end
-    
+
     #単語がこれより多く出現してたら置換などの対象にしない、という
     #ボーダを求めて@wordAdoptBorderに代入。
     def setWordAdoptBorder
@@ -171,12 +171,12 @@ module Gimite
         @wordAdoptBorder = msgCts[msgCts.size / 50]
       end
     end
-    
+
     #その単語が置換などの対象になるか
     def canAdoptWord(word)
       word.mids.size < @wordAdoptBorder
     end
-    
+
     #発言をベース発言として使用可能か。
     def isUsableBaseMsg(msgN)
       size = @log.size
@@ -190,7 +190,7 @@ module Gimite
       return false if @recentBaseMsgNs.include?(msgN) #最近そのベース発言を使った。
       return true
     end
-    
+
     #mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
     #ただし、ベース発言として使用できるものだけが対象。
     #該当するものが無ければ[nil,0]を返す。
@@ -205,17 +205,17 @@ module Gimite
         return @resEst.responseTo(mid, debug)
       end
     end
-    
+
     #類似発言検索用のフィルタ
     def similarSearchFilter(msgN)
       !responseTo(msgN).first.nil?
     end
-    
+
     #sentence中の自分のNickをtargetに置き換える。
     def replaceMyNicks(sentence, target)
       sentence.gsub(@my_nicks_regexp, target)
     end
-    
+
     #入力文章から既知単語を拾う。
     def pickUpInputWords(input)
       input = replaceMyNicks(input, " ")
@@ -239,7 +239,7 @@ module Gimite
         end
       end
     end
-    
+
     #「単語を除く文字数」から発言を採用するかを決める。
     #「単語だけ」に等しい発言は採用されにくいようにする。
     #単語が無い発言は確実に採用され、このメソッドは使われない。
@@ -257,7 +257,7 @@ module Gimite
         true
       end
     end
-    
+
     #inputWords中の単語を含む各発言について、ブロックを繰り返す。
     #ブロックは発言番号を引数に取る。
     #発言の順序はランダム。
@@ -268,7 +268,7 @@ module Gimite
         end
       end
     end
-    
+
     #共通の単語を持つ発言と、その返事の発言番号を返す。
     #適切なものが無ければ、[nil, nil]。
     def getBaseMsgUsingKeyword(inputWords)
@@ -290,7 +290,7 @@ module Gimite
       dprint("共通単語発言", @log[maxMid].body) if maxMid
       return [maxMid, maxResMid]
     end
-    
+
     #類似発言と、その返事の発言番号を返す。
     #適切なものが無ければ、[nil, nil]。
     def getBaseMsgUsingSimilarity(sentence)
@@ -312,14 +312,14 @@ module Gimite
       dprint("類似発言", @log[maxMid].body, maxProb) if maxMid
       return [maxMid, maxResMid]
     end
-    
+
     #msgN番の発言を使ったベース発言の文字列。
     def getBaseMsgStr(msg_n)
       str = @log[msg_n].body
       str.replace($1) if str =~ /^(.*)[＜＞]/ && $1.size >= str.size / 2 #文の後半に[＜＞]が有れば、その後ろはカット。
       str
     end
-    
+
     #base内の既知単語をnewWordsで置換したものを返す。
     #toForceがfalseの場合、短すぎる文章になってしまった場合はnilを返す。
     def replaceWords(base, new_words, toForce)
@@ -374,28 +374,28 @@ module Gimite
       end
       return output
     end
-    
+
     #自由発言の選び方を記録する。
     def recordThought(pattern, simMid, resMid, words, output)
       @thoughtFile.puts [@log.size-1, pattern, simMid, resMid, words.map{ |w| w.str }.join(","), output].join("\t")
     end
-    
+
     #自由に発言する。
     def speakFreely(fromNick, origInput, mustRespond)
       input = replaceMyNicks(origInput, " ")
       output = nil
       simMsgN, baseMsgN = getBaseMsgUsingSimilarity(input) #まず、類似性を使ってベース発言を求める。
       if !@newInputWords.empty?
-        if baseMsgN 
+        if baseMsgN
           output = replaceWords(getBaseMsgStr(baseMsgN), @inputWords, mustRespond)
           recordThought(1, simMsgN, baseMsgN, @newInputWords, output) if output
-        else 
+        else
           simMsgN, baseMsgN = getBaseMsgUsingKeyword(@newInputWords)
           output = getBaseMsgStr(baseMsgN) if baseMsgN
           recordThought(2, simMsgN, baseMsgN, @newInputWords, output) if output
         end
       else
-        if baseMsgN 
+        if baseMsgN
           output = getBaseMsgStr(baseMsgN)
           unless @wordSearcher.searchWords(output).empty?
             if mustRespond
@@ -405,7 +405,7 @@ module Gimite
             end
           end
           recordThought(3, simMsgN, baseMsgN, @inputWords, output) if output
-        else 
+        else
           if mustRespond && !@inputWords.empty?
             simMsgN, baseMsgN = getBaseMsgUsingKeyword(@inputWords) #最新でない入力語も使ってキーワード検索。
             output = getBaseMsgStr(baseMsgN) if baseMsgN
@@ -413,7 +413,7 @@ module Gimite
           end
         end
       end
-      if mustRespond && !output 
+      if mustRespond && !output
         log_size = @log.size
         2000.times do
           msgN = rand(log_size)
@@ -432,7 +432,7 @@ module Gimite
         speak(origInput, output) #実際に発言。
       end
     end
-    
+
     #自由発話として発言する。
     def speak(input, output)
       @lastSpeachInput = input
@@ -442,7 +442,7 @@ module Gimite
       @attention.onSelfSpeak(@wordSearcher.searchWords(output))
       @client.speak(output)
     end
-    
+
     #定型コマンドを処理。
     #入力が定型コマンドであれば応答メッセージを返す。
     #そうでなければnilを返す。ただし、終了コマンドだったら:exitを返す。
@@ -491,7 +491,7 @@ module Gimite
       end
       return nil #定型コマンドではない。
     end
-    
+
     #通常の発言を学習。
     def studyMsg(fromNick, input)
       return if @settings[:disable_studying]
@@ -502,12 +502,12 @@ module Gimite
         @log.addMsg(fromNick, input)
       end
     end
-    
+
     #学習内容を手動保存
     def save
       @wordSet.save
     end
-    
+
     #ログに発言が追加された。
     def onAddMsg
       msg = @log[-1]
@@ -516,11 +516,11 @@ module Gimite
       #@extractor以外のオブジェクトは自力で@logを監視しているので、
       #ここで何かする必要は無い。
     end
-    
+
     #ログがクリアされた。
     def onClearLog
     end
-    
+
     #単語が追加された
     def onAddWord(wordStr)
       if @wordSet.addWord(wordStr, @fromNick)
@@ -532,21 +532,21 @@ module Gimite
         @wordSet.save if @autoSave
       end
     end
-    
+
     #接続を開始した
     def onBeginConnecting
       warn "接続開始..."
     end
-    
+
     #自分が入室した
     def onSelfJoin
       updateStatus
     end
-    
+
     #他人が入室した
     def onOtherJoin(fromNick)
     end
-  
+
     #他人が発言した。
     def onOtherSpeak(from_nick, input, should_ignore = false)
       output = nil #発言。
@@ -563,7 +563,7 @@ module Gimite
         speakFreely(from_nick, input, prob > 1.0) if (!should_ignore && rand < prob) || prob > 1.0 #自由発話。
       end
     end
-    
+
     #制御発言（infoでの発言）があった。
     def onControlMsg(str)
       return if @settings[:disable_studying] || !@settings[:teacher_mode]
@@ -580,7 +580,7 @@ module Gimite
         @client.outputInfo("反応「#{input}→→#{output}」を学習した。" ) if @client
       end
     end
-    
+
     #沈黙がしばらく続いた。
     def onSilent
       prob = @attention.onSilent

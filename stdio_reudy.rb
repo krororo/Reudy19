@@ -16,9 +16,9 @@ trap(:INT){ exit }
 module Gimite
 
 class StdioClient
-  
+
   include(Gimite)
-  
+
   def initialize(user, yourNick)
     @user = user
     @user.client = self
@@ -26,7 +26,7 @@ class StdioClient
     greeting = @user.settings["joining_message"]
     puts greeting if greeting
   end
-  
+
   def loop
     STDIN.each_line do |line|
       line = line.chomp
@@ -41,12 +41,12 @@ class StdioClient
       end
     end
   end
-  
+
   #補助情報を出力
   def outputInfo(s)
     puts "(#{s})"
   end
-  
+
   #発言する
   def speak(s)
     puts s

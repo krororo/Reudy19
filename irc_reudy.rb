@@ -11,21 +11,21 @@ module Gimite
   STDOUT.sync = true
   STDERR.sync = true
   Thread.abort_on_exception = true
-  
+
   opt = OptionParser.new
-  
+
   directory = 'public'
   opt.on('-d DIRECTORY') { |v| directory = v; p v }
-  
+
   db = 'pstore'
   opt.on('--db DB_TYPE') { |v| db = v }
-  
+
   mecab = nil
   opt.on('-m','--mecab') { |v| mecab = true }
-  
+
   opt.parse!(ARGV)
   directory = ARGV.first unless ARGV.empty?
-  
+
   begin
     #IRC用ロイディを作成
     client= BotIRCClient.new(Reudy.new(directory,{},db,mecab))

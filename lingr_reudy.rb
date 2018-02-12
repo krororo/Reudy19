@@ -13,7 +13,7 @@ class Lingr
   def speak(n)
     @message = n
   end
-  
+
   attr_accessor :message
 end
 
