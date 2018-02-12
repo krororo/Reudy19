@@ -1,4 +1,4 @@
-#Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
 require 'pstore'
 
 module Gimite

@@ -1,8 +1,8 @@
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 module Gimite
-  #単語連想器
+  # 単語連想器
   class WordAssociator
     def initialize(file_name)
       @file_name = file_name
@@ -22,7 +22,7 @@ module Gimite
       end
     end
 
-    #1単語から連想された1単語を返す
+    # 1単語から連想された1単語を返す
     def associate(word_str)
       if (strs = @assoc_word_map[word_str])
         strs.sample
@@ -31,7 +31,7 @@ module Gimite
       end
     end
 
-    #1単語から連想された全ての単語を返す
+    # 1単語から連想された全ての単語を返す
     def associateAll(word_str)
       @assoc_word_map[word_str]
     end

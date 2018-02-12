@@ -1,7 +1,7 @@
-#encoding:utf-8
-#!/usr/bin/ruby
+# encoding:utf-8
+# !/usr/bin/ruby
 #----------------------------------------------------------------------------
-#Copyright (C) 2003 mita-K, NAKAUE.T (Meister), Gimite 市川
+# Copyright (C) 2003 mita-K, NAKAUE.T (Meister), Gimite 市川
 #
 # mita-Kの単語取得ライブラリ
 #
@@ -54,9 +54,9 @@ class WordExtractor
   # 主語っぽい語などの特例には適用しない
   # 不適だとnilを返す
   def wordFilter1(word)
-    return nil if !word || word.size == 1 #wordがnil又は一文字だけ
+    return nil if !word || word.size == 1 # wordがnil又は一文字だけ
     case word
-    when /^[ぁ-んー]+$/, #平仮名だけ
+    when /^[ぁ-んー]+$/, # 平仮名だけ
          /[^ぁ-んー][^ぁ-ん]/, # 非ひらがなの2文字以上の連続を含まない
          /[^ぁ-ん][のとな]$/, # 助詞っぽいものを含む
          /^.+(?:が|は)/ # 先頭以外に「が」「は」を含む
@@ -70,7 +70,7 @@ class WordExtractor
   # 主語っぽいなどの特例にも適用する
   # 不適だとnilを返す
   def wordFilter2(word)
-    return nil if !word || word.empty? #wordがnil、又は空白
+    return nil if !word || word.empty? # wordがnil、又は空白
     case word
     when /^[　 ]/, /[　 ]$/, # 空白類
          /^[ぁ-んァ-ンー]$/, /^[ぁ-んー−][ぁ-んー−]$/, # かな一文字だけ、ひらがな2文字
@@ -108,7 +108,7 @@ class WordExtractor
     when /^(?:[ぁ-んァ-ンー]|[ぁ-んー ][ぁ-んー－])$/, # 禁則
          /ない|って|った|てる|んな|いる|から|とは|れる|れて|れる|れた|ます|いう|れば|のは|しい|にな|んで|なる|しく|を|だと|たと|られ
         くて|のか|だけ|いた|えて|れが|いと|され|うが|える|ため|ある|こと|して|する|だよ|した|ので|しま|なの|です|なん|でき|とか
-        ような|だろう/, /[^ぁ-ん][でにを]/, /っ$/ #単語候補時に除外されてるはずだが、語末のゴミの除去で現れた可能性が有るのでもう1度
+        ような|だろう/, /[^ぁ-ん][でにを]/, /っ$/ # 単語候補時に除外されてるはずだが、語末のゴミの除去で現れた可能性が有るのでもう1度
       return nil
     else
       return word
@@ -121,13 +121,13 @@ class WordExtractor
   def extractCands(str)
     str = str.dup
 
-    intact = str.scan(/[-_0-9a-zA-Z]+|[ー－ァ-ン]+/) #文字列から英数字やカタカナの連続を取り出し、配列に格納する
+    intact = str.scan(/[-_0-9a-zA-Z]+|[ー－ァ-ン]+/) # 文字列から英数字やカタカナの連続を取り出し、配列に格納する
     str.delete!(*intact) unless intact.empty?
 
-    result = intact.select{|s| checkWordCand(s) } #英数字、カタカナの連続はそのままcheckWordCandにかける
+    result = intact.select{|s| checkWordCand(s) } # 英数字、カタカナの連続はそのままcheckWordCandにかける
 
     str_size = str.size
-    0.upto(str_size) do |i| #それ以外
+    0.upto(str_size) do |i| # それ以外
       i.upto(str_size) do |j|
         cand = checkWordCand(str[i..j], str[0...i], str[j+1..-1])
         result << cand if cand
@@ -182,7 +182,7 @@ class WordExtractor
     return words
   end
 
-  #デバッグ出力
+  # デバッグ出力
   def dprint(caption, obj)
     puts "#{caption} : #{obj.inspect}"
   end

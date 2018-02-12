@@ -1,11 +1,11 @@
-#encoding: utf-8
+# encoding: utf-8
 
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 require 'gdbm'
 
 module Gimite
-  #値が文字列以外でもOKなGDBM（手抜き）
+  # 値が文字列以外でもOKなGDBM（手抜き）
   class DB
     def initialize(file_name)
       @gdbm = GDBM.new(file_name, 0666, GDBM::FAST)
@@ -14,7 +14,7 @@ module Gimite
     def [](key)
       str = @gdbm[key]
       return str && Marshal.load(str).freeze
-      #オブジェクトの中身を変更されてもDBに反映できないので、freeze()しておく
+      # オブジェクトの中身を変更されてもDBに反映できないので、freeze()しておく
     end
 
     def []=(key, value)

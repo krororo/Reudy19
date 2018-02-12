@@ -1,5 +1,5 @@
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 $REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
 
@@ -27,10 +27,10 @@ module Gimite
   directory = ARGV.first unless ARGV.empty?
 
   begin
-    #IRC用ロイディを作成
+    # IRC用ロイディを作成
     client= BotIRCClient.new(Reudy.new(directory,{},db,mecab))
     client.processLoop
   rescue Interrupt
-    nil #割り込み発生。
+    nil # 割り込み発生。
   end
 end

@@ -1,6 +1,6 @@
-#encoding:utf-8
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# encoding:utf-8
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 require $REUDY_DIR+'/wordset'
 require $REUDY_DIR+'/word_searcher'
@@ -26,11 +26,11 @@ module Gimite
     def initialize(dir, fixedSettings = {},db="pstore",mecab=nil)
       @attention = nil
 
-      #設定を読み込む。
-      @db = db #使用するDBの名前
+      # 設定を読み込む。
+      @db = db # 使用するDBの名前
       if mecab
         begin
-          require $REUDY_DIR+'/tango-mecab' #単語の抽出にmecabを使用する
+          require $REUDY_DIR+'/tango-mecab' # 単語の抽出にmecabを使用する
         rescue => ex
           warn ex.message
           require $REUDY_DIR+'/tango-mgm'
@@ -44,7 +44,7 @@ module Gimite
       loadSettings
       @autoSave = !@settings[:disable_auto_saving]
 
-      #働き者のオブジェクト達を作る。
+      # 働き者のオブジェクト達を作る。
       @log = MessageLog.new(dir + '/log.yml')
       @log.addObserver(self)
       warn "ログロード終了"
@@ -58,44 +58,44 @@ module Gimite
       @attention.setParameter(attentionParameters)
       @resEst = ResponseEstimator.new(@log, @wordSearcher, method(:isUsableBaseMsg), method(:canAdoptWord))
       warn "単語ロード終了"
-      #その他インスタンス変数の初期化。
+      # その他インスタンス変数の初期化。
       @client = nil
       @lastSpeachInput = nil
       @lastSpeach = nil
       @inputWords = []
       @newInputWords = []
-      @recentUnusedCt = 100 #最近n個の発言は対象としない
-      @repeatProofCt = 50 #過去n発言で使ったベース発言は再利用しない
-      @recentBaseMsgNs = Array.new(@repeatProofCt) #最近使ったベース発言番号
-      @thoughtFile = open(dir + "/thought.txt", "a") #思考過程を記録するファイル
+      @recentUnusedCt = 100 # 最近n個の発言は対象としない
+      @repeatProofCt = 50 # 過去n発言で使ったベース発言は再利用しない
+      @recentBaseMsgNs = Array.new(@repeatProofCt) # 最近使ったベース発言番号
+      @thoughtFile = open(dir + "/thought.txt", "a") # 思考過程を記録するファイル
       @thoughtFile.sync = true
 
       setWordAdoptBorder
     end
 
-    #設定をファイルからロード
+    # 設定をファイルからロード
     def loadSettings
       File.open(@settingPath) do |file|
         @settings = YAML.load(file)
       end
       @settings.merge!(@fixedSettings)
-      #メンバ変数を更新
+      # メンバ変数を更新
       @targetNickReg = Regexp.new(@settings[:target_nick] || "", Regexp::IGNORECASE)
-      #これにマッチしないNickの発言は、ベース発言として使用不能
+      # これにマッチしないNickの発言は、ベース発言として使用不能
       if @settings[:forbidden_nick] && !@settings[:forbidden_nick].empty?
         @forbiddenNickReg = Regexp.new(@settings[:forbidden_nick], Regexp::IGNORECASE)
       else
-        @forbiddenNickReg = /(?!)/o #何にもマッチしない正規表現
+        @forbiddenNickReg = /(?!)/o # 何にもマッチしない正規表現
       end
-      @myNicks = @settings[:nicks] #これにマッチするNickの発言は、ベース発言として使用不能
+      @myNicks = @settings[:nicks] # これにマッチするNickの発言は、ベース発言として使用不能
       @my_nicks_regexp = Regexp.new(@myNicks.map{|n| Regexp.escape(n) }.join("|"))
-      changeMode(@settings[:default_mode].to_i) #デフォルトのモードに変更
+      changeMode(@settings[:default_mode].to_i) # デフォルトのモードに変更
     end
 
-    #チャットクライアントの指定
+    # チャットクライアントの指定
     attr_accessor :client,:settings
 
-    #モードを変更
+    # モードを変更
     def changeMode(mode)
       return false if mode == @mode
       @mode = mode
@@ -108,10 +108,10 @@ module Gimite
       @client.status = ["沈黙", "寡黙", nil, "饒舌"][@mode] if @client
     end
 
-    #注目判定器に与えるパラメータ。
+    # 注目判定器に与えるパラメータ。
     def attentionParameters
       case @mode
-      when 0 #沈黙モード。
+      when 0 # 沈黙モード。
         return { \
           :min     => 0.001, \
           :max     => 0.001, \
@@ -120,7 +120,7 @@ module Gimite
           :self    => 0.0,   \
           :ignored => 0.0    \
         }
-      when 1 #寡黙モード。
+      when 1 # 寡黙モード。
         return { \
           :min     => 0.1, \
           :max     => 0.3, \
@@ -129,7 +129,7 @@ module Gimite
           :self    => 0.005, \
           :ignored => 0.002 \
         }
-      when 2 #通常モード。
+      when 2 # 通常モード。
         return { \
           :min     => 0.5, \
           :max     => 1.1, \
@@ -138,7 +138,7 @@ module Gimite
           :self    => 0.3, \
           :ignored => 0.002 \
         }
-      when 3 #饒舌モード。
+      when 3 # 饒舌モード。
         return { \
           :min     => 0.8, \
           :max     => 1.1, \
@@ -147,7 +147,7 @@ module Gimite
           :self    => 0.8, \
           :ignored => 0.01  \
         }
-      when 4 #必ず応答するモード。
+      when 4 # 必ず応答するモード。
         return { \
           :min     => 1.1, \
           :max     => 1.1, \
@@ -159,8 +159,8 @@ module Gimite
       end
     end
 
-    #単語がこれより多く出現してたら置換などの対象にしない、という
-    #ボーダを求めて@wordAdoptBorderに代入。
+    # 単語がこれより多く出現してたら置換などの対象にしない、という
+    # ボーダを求めて@wordAdoptBorderに代入。
     def setWordAdoptBorder
       if @wordSet.words.empty?
         @wordAdoptBorder = 0
@@ -172,28 +172,28 @@ module Gimite
       end
     end
 
-    #その単語が置換などの対象になるか
+    # その単語が置換などの対象になるか
     def canAdoptWord(word)
       word.mids.size < @wordAdoptBorder
     end
 
-    #発言をベース発言として使用可能か。
+    # 発言をベース発言として使用可能か。
     def isUsableBaseMsg(msgN)
       size = @log.size
-      return false if msgN >= size #存在しない発言。
+      return false if msgN >= size # 存在しない発言。
       msg = @log[msgN]
-      return unless msg #空行。削除された発言など。
-      return false if !@settings[:teacher_mode] && size > @recentUnusedCt && msgN >= size - @recentUnusedCt #発言が新しすぎる。（中の人モードでは無効）
+      return unless msg # 空行。削除された発言など。
+      return false if !@settings[:teacher_mode] && size > @recentUnusedCt && msgN >= size - @recentUnusedCt # 発言が新しすぎる。（中の人モードでは無効）
       nick = msg.fromNick
-      return false if nick == "!" #自分自身の発言。
-      return false if !(nick =~ @targetNickReg) || nick =~ @forbiddenNickReg #この発言者の発言は使えない。
-      return false if @recentBaseMsgNs.include?(msgN) #最近そのベース発言を使った。
+      return false if nick == "!" # 自分自身の発言。
+      return false if !(nick =~ @targetNickReg) || nick =~ @forbiddenNickReg # この発言者の発言は使えない。
+      return false if @recentBaseMsgNs.include?(msgN) # 最近そのベース発言を使った。
       return true
     end
 
-    #mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
-    #ただし、ベース発言として使用できるものだけが対象。
-    #該当するものが無ければ[nil,0]を返す。
+    # mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
+    # ただし、ベース発言として使用できるものだけが対象。
+    # 該当するものが無ければ[nil,0]を返す。
     def responseTo(mid, debug = false)
       if @settings[:teacher_mode]
         if isUsableBaseMsg(mid+1) && @log[mid].fromNick == "!input"
@@ -206,31 +206,31 @@ module Gimite
       end
     end
 
-    #類似発言検索用のフィルタ
+    # 類似発言検索用のフィルタ
     def similarSearchFilter(msgN)
       !responseTo(msgN).first.nil?
     end
 
-    #sentence中の自分のNickをtargetに置き換える。
+    # sentence中の自分のNickをtargetに置き換える。
     def replaceMyNicks(sentence, target)
       sentence.gsub(@my_nicks_regexp, target)
     end
 
-    #入力文章から既知単語を拾う。
+    # 入力文章から既知単語を拾う。
     def pickUpInputWords(input)
       input = replaceMyNicks(input, " ")
-      @newInputWords = @wordSearcher.searchWords(input).select{ |w| canAdoptWord(w) } #入力に含まれる単語を列挙
-      #入力に単語が無い場合は、時々入力語をランダムに変更
+      @newInputWords = @wordSearcher.searchWords(input).select{ |w| canAdoptWord(w) } # 入力に含まれる単語を列挙
+      # 入力に単語が無い場合は、時々入力語をランダムに変更
       if @newInputWords.empty? && rand(50).zero?
         word = @wordSet.words.sample
         @newInputWords.push(word) if canAdoptWord(word)
       end
-      #連想される単語を追加
+      # 連想される単語を追加
       assoc_words = @newInputWords.map{|w| @associator.associate(w.str) }
       assoc_words.compact!
       assoc_words.map!{|s| Word.new(s) }
       @newInputWords.concat(assoc_words)
-      #入力語の更新
+      # 入力語の更新
       unless @newInputWords.empty?
         if rand(5).nonzero?
           @inputWords.replace(@newInputWords)
@@ -240,9 +240,9 @@ module Gimite
       end
     end
 
-    #「単語を除く文字数」から発言を採用するかを決める。
-    #「単語だけ」に等しい発言は採用されにくいようにする。
-    #単語が無い発言は確実に採用され、このメソッドは使われない。
+    # 「単語を除く文字数」から発言を採用するかを決める。
+    # 「単語だけ」に等しい発言は採用されにくいようにする。
+    # 単語が無い発言は確実に採用され、このメソッドは使われない。
     def shouldAdoptSaying(additionalLen)
       case additionalLen
       when 0
@@ -258,9 +258,9 @@ module Gimite
       end
     end
 
-    #inputWords中の単語を含む各発言について、ブロックを繰り返す。
-    #ブロックは発言番号を引数に取る。
-    #発言の順序はランダム。
+    # inputWords中の単語を含む各発言について、ブロックを繰り返す。
+    # ブロックは発言番号を引数に取る。
+    # 発言の順序はランダム。
     def eachMsgContainingWords(input_words)
       input_words.shuffle.each do |word|
         word.mids.shuffle.each do |mid|
@@ -269,8 +269,8 @@ module Gimite
       end
     end
 
-    #共通の単語を持つ発言と、その返事の発言番号を返す。
-    #適切なものが無ければ、[nil, nil]。
+    # 共通の単語を持つ発言と、その返事の発言番号を返す。
+    # 適切なものが無ければ、[nil, nil]。
     def getBaseMsgUsingKeyword(inputWords)
       maxMid = maxResMid = nil
       maxProb = 0
@@ -291,8 +291,8 @@ module Gimite
       return [maxMid, maxResMid]
     end
 
-    #類似発言と、その返事の発言番号を返す。
-    #適切なものが無ければ、[nil, nil]。
+    # 類似発言と、その返事の発言番号を返す。
+    # 適切なものが無ければ、[nil, nil]。
     def getBaseMsgUsingSimilarity(sentence)
       maxMid = maxResMid = nil
       maxProb = 0
@@ -313,17 +313,17 @@ module Gimite
       return [maxMid, maxResMid]
     end
 
-    #msgN番の発言を使ったベース発言の文字列。
+    # msgN番の発言を使ったベース発言の文字列。
     def getBaseMsgStr(msg_n)
       str = @log[msg_n].body
-      str.replace($1) if str =~ /^(.*)[＜＞]/ && $1.size >= str.size / 2 #文の後半に[＜＞]が有れば、その後ろはカット。
+      str.replace($1) if str =~ /^(.*)[＜＞]/ && $1.size >= str.size / 2 # 文の後半に[＜＞]が有れば、その後ろはカット。
       str
     end
 
-    #base内の既知単語をnewWordsで置換したものを返す。
-    #toForceがfalseの場合、短すぎる文章になってしまった場合はnilを返す。
+    # base内の既知単語をnewWordsで置換したものを返す。
+    # toForceがfalseの場合、短すぎる文章になってしまった場合はnilを返す。
     def replaceWords(base, new_words, toForce)
-      #baseを単語の前後で分割してpartsにする。
+      # baseを単語の前後で分割してpartsにする。
       parts = [base]
       @wordSet.words.each do |word|
         next if word.str.empty?
@@ -342,17 +342,17 @@ module Gimite
           parts = newParts
         end
       end
-      #先頭から2番目以降の単語の直前でカットしたりしなかったり。
+      # 先頭から2番目以降の単語の直前でカットしたりしなかったり。
       wordCt = (parts.size-1) / 2
       if parts.size > 1
         cutPos = rand(wordCt) * 2 + 1
         parts.replace(parts[cutPos..-1].unshift("")) if cutPos > 1
       end
-      #単語を除いた文章が短すぎるものはある確率で却下。
+      # 単語を除いた文章が短すぎるものはある確率で却下。
       if wordCt.nonzero? && !toForce && !shouldAdoptSaying(sigma(0...parts.size){|i| (i % 2).zero? ? parts[i].size : 0 })
         return nil
       end
-      #単語を置換。
+      # 単語を置換。
       new_words.shuffle.each do |new_word|
         new_word_str = new_word.str
         old_word_str = parts[rand(wordCt)*2+1]
@@ -362,8 +362,8 @@ module Gimite
         break if rand < 0.5
       end
       output = parts.join
-      #閉じ括弧が残った場合に開き括弧を補う。
-      #入れ子になってたりしたら知らない。
+      # 閉じ括弧が残った場合に開き括弧を補う。
+      # 入れ子になってたりしたら知らない。
       case output
       when /^[^「」]*」/
         output.replace("「#{output}")
@@ -375,16 +375,16 @@ module Gimite
       return output
     end
 
-    #自由発言の選び方を記録する。
+    # 自由発言の選び方を記録する。
     def recordThought(pattern, simMid, resMid, words, output)
       @thoughtFile.puts [@log.size-1, pattern, simMid, resMid, words.map{ |w| w.str }.join(","), output].join("\t")
     end
 
-    #自由に発言する。
+    # 自由に発言する。
     def speakFreely(fromNick, origInput, mustRespond)
       input = replaceMyNicks(origInput, " ")
       output = nil
-      simMsgN, baseMsgN = getBaseMsgUsingSimilarity(input) #まず、類似性を使ってベース発言を求める。
+      simMsgN, baseMsgN = getBaseMsgUsingSimilarity(input) # まず、類似性を使ってベース発言を求める。
       if !@newInputWords.empty?
         if baseMsgN
           output = replaceWords(getBaseMsgStr(baseMsgN), @inputWords, mustRespond)
@@ -407,7 +407,7 @@ module Gimite
           recordThought(3, simMsgN, baseMsgN, @inputWords, output) if output
         else
           if mustRespond && !@inputWords.empty?
-            simMsgN, baseMsgN = getBaseMsgUsingKeyword(@inputWords) #最新でない入力語も使ってキーワード検索。
+            simMsgN, baseMsgN = getBaseMsgUsingKeyword(@inputWords) # 最新でない入力語も使ってキーワード検索。
             output = getBaseMsgStr(baseMsgN) if baseMsgN
             recordThought(4, simMsgN, baseMsgN, @inputWords, output) if output
           end
@@ -425,33 +425,33 @@ module Gimite
         end
       end
       if output
-        #最近使ったベース発言を更新
+        # 最近使ったベース発言を更新
         @recentBaseMsgNs.shift
         @recentBaseMsgNs.push(baseMsgN)
-        output = replaceMyNicks(output, fromNick) #発言中の自分のNickを相手のNickに変換
-        speak(origInput, output) #実際に発言。
+        output = replaceMyNicks(output, fromNick) # 発言中の自分のNickを相手のNickに変換
+        speak(origInput, output) # 実際に発言。
       end
     end
 
-    #自由発話として発言する。
+    # 自由発話として発言する。
     def speak(input, output)
       @lastSpeachInput = input
       @lastSpeach = output
-      studyMsg("!", output) #自分の発言を記憶する。
+      studyMsg("!", output) # 自分の発言を記憶する。
       @client.outputInfo("「#{input}」に反応した。") if @settings[:teacher_mode]
       @attention.onSelfSpeak(@wordSearcher.searchWords(output))
       @client.speak(output)
     end
 
-    #定型コマンドを処理。
-    #入力が定型コマンドであれば応答メッセージを返す。
-    #そうでなければnilを返す。ただし、終了コマンドだったら:exitを返す。
+    # 定型コマンドを処理。
+    # 入力が定型コマンドであれば応答メッセージを返す。
+    # そうでなければnilを返す。ただし、終了コマンドだったら:exitを返す。
     def processCommand(input)
       if input =~ /設定を更新/
         loadSettings
         return "設定を更新しました。"
       end
-      return nil if @settings[:disable_commands] #コマンドが禁止されている場合
+      return nil if @settings[:disable_commands] # コマンドが禁止されている場合
       case input
       when /黙れ|黙りなさい|黙ってろ|沈黙モード/
         return changeMode(0) ? "沈黙モードに切り替える。" : ""
@@ -465,7 +465,7 @@ module Gimite
         save
         @client.exit
         return :exit
-      when /([\x21-\x7e]+)の(?:もの|モノ|物)(?:まね|真似)/ #半角文字を抽出する正規表現
+      when /([\x21-\x7e]+)の(?:もの|モノ|物)(?:まね|真似)/ # 半角文字を抽出する正規表現
         begin
           @targetNickReg = Regexp.new($1, Regexp::IGNORECASE)
           return "#{$1}のものまねを開始する。"
@@ -489,39 +489,39 @@ module Gimite
           return "その単語は記憶していない。"
         end
       end
-      return nil #定型コマンドではない。
+      return nil # 定型コマンドではない。
     end
 
-    #通常の発言を学習。
+    # 通常の発言を学習。
     def studyMsg(fromNick, input)
       return if @settings[:disable_studying]
       if @settings[:teacher_mode]
         @fromNick = fromNick
-        @extractor.processLine(input) #単語の抽出のみ。
+        @extractor.processLine(input) # 単語の抽出のみ。
       else
         @log.addMsg(fromNick, input)
       end
     end
 
-    #学習内容を手動保存
+    # 学習内容を手動保存
     def save
       @wordSet.save
     end
 
-    #ログに発言が追加された。
+    # ログに発言が追加された。
     def onAddMsg
       msg = @log[-1]
       @fromNick = msg.fromNick unless msg.fromNick == "!"
-      @extractor.processLine(msg.body) unless @settings[:teacher_mode] #中の人モードでは、単語の抽出は別にやる。
-      #@extractor以外のオブジェクトは自力で@logを監視しているので、
-      #ここで何かする必要は無い。
+      @extractor.processLine(msg.body) unless @settings[:teacher_mode] # 中の人モードでは、単語の抽出は別にやる。
+      # @extractor以外のオブジェクトは自力で@logを監視しているので、
+      # ここで何かする必要は無い。
     end
 
-    #ログがクリアされた。
+    # ログがクリアされた。
     def onClearLog
     end
 
-    #単語が追加された
+    # 単語が追加された
     def onAddWord(wordStr)
       if @wordSet.addWord(wordStr, @fromNick)
         if @client
@@ -533,37 +533,37 @@ module Gimite
       end
     end
 
-    #接続を開始した
+    # 接続を開始した
     def onBeginConnecting
       warn "接続開始..."
     end
 
-    #自分が入室した
+    # 自分が入室した
     def onSelfJoin
       updateStatus
     end
 
-    #他人が入室した
+    # 他人が入室した
     def onOtherJoin(fromNick)
     end
 
-    #他人が発言した。
+    # 他人が発言した。
     def onOtherSpeak(from_nick, input, should_ignore = false)
       called = @myNicks.any?{|n| input.include?(n) }
-      output = called ? processCommand(input) : nil #発言。
+      output = called ? processCommand(input) : nil # 発言。
       if output
         @client.speak(output) if output != :exit && !output.empty?
-      else #定型コマンドではない。
+      else # 定型コマンドではない。
         @lastSpeach = input
         studyMsg(from_nick, input)
         pickUpInputWords(input)
         prob = @attention.onOtherSpeak(from_nick, input, called)
-        dprint("発言率", prob, @attention.to_s) #発言率を求める。
-        speakFreely(from_nick, input, prob > 1.0) if (!should_ignore && rand < prob) || prob > 1.0 #自由発話。
+        dprint("発言率", prob, @attention.to_s) # 発言率を求める。
+        speakFreely(from_nick, input, prob > 1.0) if (!should_ignore && rand < prob) || prob > 1.0 # 自由発話。
       end
     end
 
-    #制御発言（infoでの発言）があった。
+    # 制御発言（infoでの発言）があった。
     def onControlMsg(str)
       return if @settings[:disable_studying] || !@settings[:teacher_mode]
       if str =~ /^(.+)→→(.+)$/
@@ -580,13 +580,13 @@ module Gimite
       end
     end
 
-    #沈黙がしばらく続いた。
+    # 沈黙がしばらく続いた。
     def onSilent
       prob = @attention.onSilent
       if rand < prob && @lastSpeach
-        speakFreely(@fromNick, @lastSpeach, prob > rand * 1.1) #自発発言。
-        #自発発言では、発言が無い限り、同じ発言を対象にしつづける。
-        #このせいで全然しゃべらなくなるのを防ぐため、時々mustRespondをONにする。
+        speakFreely(@fromNick, @lastSpeach, prob > rand * 1.1) # 自発発言。
+        # 自発発言では、発言が無い限り、同じ発言を対象にしつづける。
+        # このせいで全然しゃべらなくなるのを防ぐため、時々mustRespondをONにする。
       end
     end
   end

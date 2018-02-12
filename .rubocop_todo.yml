@@ -6,32 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 307
-# Cop supports --auto-correct.
-Layout/LeadingCommentSpace:
-  Exclude:
-    - 'irc_reudy.rb'
-    - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/gdbm.rb'
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/message_log.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/pstore.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/reudy_common.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
-    - 'lib/reudy/word_associator.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'lib/reudy/wordset.rb'
-    - 'lib/reudy/wtml_manager.rb'
-    - 'lingr_reudy.rb'
-    - 'stdio_reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 83
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:

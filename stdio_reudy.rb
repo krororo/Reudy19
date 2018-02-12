@@ -1,9 +1,9 @@
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
-#日本語文字コード判定用コメント
+# 日本語文字コード判定用コメント
 
-$OUT_KCODE= "UTF-8" #出力文字コード
+$OUT_KCODE= "UTF-8" # 出力文字コード
 $REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
 
 require 'optparse'
@@ -40,12 +40,12 @@ module Gimite
       end
     end
 
-    #補助情報を出力
+    # 補助情報を出力
     def outputInfo(s)
       puts "(#{s})"
     end
 
-    #発言する
+    # 発言する
     def speak(s)
       puts s
     end
@@ -76,6 +76,6 @@ module Gimite
   opt.parse!(ARGV)
 
   STDOUT.sync = true
-  client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) #標準入出力用ロイディを作成
+  client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) # 標準入出力用ロイディを作成
   client.loop
 end

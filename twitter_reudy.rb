@@ -1,6 +1,6 @@
-#encoding: utf-8
+# encoding: utf-8
 
-#Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
 
 $REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
 
@@ -54,12 +54,12 @@ module Gimite
       @user.onOtherSpeak(status.user.screen_name, status.text)
     end
 
-    #補助情報を出力
+    # 補助情報を出力
     def outputInfo(s)
       puts "(#{s})"
     end
 
-    #発言する
+    # 発言する
     def speak(s)
       time = Time.now
       if time - @last_tweet > Interval
@@ -89,7 +89,7 @@ module Gimite
 
   opt.parse!(ARGV)
 
-  #twitter用ロイディを作成
+  # twitter用ロイディを作成
   client = TwitterClient.new(Reudy.new(directory,{},db,mecab))
 
   loop do

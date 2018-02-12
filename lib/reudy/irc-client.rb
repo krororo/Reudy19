@@ -87,7 +87,7 @@ class IRCC
   def movechannel(channel)
     old_channel = @irc_channel
     @irc_channel = channel
-    #PARTの前にこれを書き換えておかないとQUITしてしまう
+    # PARTの前にこれを書き換えておかないとQUITしてしまう
     sendmess("PART #{old_channel}\r\n")
     sendmess("JOIN #{@irc_channel} #{@channel_key}\r\n")
   end

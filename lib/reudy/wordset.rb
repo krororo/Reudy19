@@ -1,14 +1,14 @@
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 require $REUDY_DIR+'/reudy_common'
 
 module Gimite
-  class Word #単語クラス
+  class Word # 単語クラス
     def initialize(str, author = "", mids = [])
-      @str = str #単語の文字列。
-      @author = author #単語を教えた人。
-      @mids = mids #この単語を含む発言の番号。
+      @str = str # 単語の文字列。
+      @author = author # 単語を教えた人。
+      @mids = mids # この単語を含む発言の番号。
     end
 
     attr_accessor :str,:author,:mids
@@ -48,7 +48,7 @@ module Gimite
 
     attr_reader :words
 
-    #単語を追加
+    # 単語を追加
     def addWord(str, author = "")
       return nil if str.empty?
       i = @words.find_index{|word| str.include?(word.str) }
@@ -66,19 +66,19 @@ module Gimite
       end
     end
 
-    #ファイルに保存
+    # ファイルに保存
     def save
       File.open(@filename, "w") do |f|
         YAML.dump(@words, f)
       end
     end
 
-    #単語イテレータ
+    # 単語イテレータ
     def each
       @words.each
     end
 
-    #中身をテキスト形式で出力。
+    # 中身をテキスト形式で出力。
     def output(io)
       @words.each do |word|
         io.puts "#{word.str}\t#{word.author}\t#{word.mids.join(",")}"
@@ -87,7 +87,7 @@ module Gimite
 
     private
 
-    #既存のファイルとかぶらないファイル名を作る。
+    # 既存のファイルとかぶらないファイル名を作る。
     def makeNewFileName(base)
       return base unless File.exist?(base)
       i = 2

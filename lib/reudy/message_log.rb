@@ -1,12 +1,12 @@
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 require $REUDY_DIR+'/reudy_common'
-require "psych" #UTF-8をバイナリで書き出さないようにする
+require "psych" # UTF-8をバイナリで書き出さないようにする
 require "yaml"
 
 module Gimite
-  #個々の発言
+  # 個々の発言
   class Message
     def initialize(from_nick, body)
       @fromNick = from_nick
@@ -16,7 +16,7 @@ module Gimite
     attr_accessor :fromNick,:body
   end
 
-  #発言ログ
+  # 発言ログ
   class MessageLog
     include Gimite
 
@@ -30,14 +30,14 @@ module Gimite
 
     attr_accessor :size
 
-    #観察者を追加。
+    # 観察者を追加。
     def addObserver(*observers)
       @observers.concat(observers)
     end
 
-    #n番目の発言
+    # n番目の発言
     def [](n)
-      n += @size if n < 0 #末尾からのインデックス
+      n += @size if n < 0 # 末尾からのインデックス
       File.open(@innerFileName) do |f|
         line = f.lines("\n---").find{ f.lineno > n }
         if line && line != "\n---"
@@ -49,7 +49,7 @@ module Gimite
       end
     end
 
-    #発言を追加
+    # 発言を追加
     def addMsg(from_nick, body, _to_outer = true)
       File.open(@innerFileName, "a") do |f|
         YAML.dump({:fromNick => from_nick, :body => body}, f)
@@ -60,7 +60,7 @@ module Gimite
 
     private
 
-    #内部データをクリア(デフォルトのログのみ残す)
+    # 内部データをクリア(デフォルトのログのみ残す)
     def clear
       File.open(@innerFileName, "w") do |f|
         default = f.lines("\n---").select{|s| YAML.load(s)[:fromNick] == "Default" }

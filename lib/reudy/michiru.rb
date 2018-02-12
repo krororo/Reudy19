@@ -1,5 +1,5 @@
-#encoding:utf-8
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# encoding:utf-8
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 
 require $REUDY_DIR+'/tango-mgm'
 require $REUDY_DIR+'/wordset'
@@ -10,12 +10,12 @@ require $REUDY_DIR+'/similar_searcher5'
 require $REUDY_DIR+'/reudy_common'
 
 module Gimite
-  #人工無能ミチル
+  # 人工無能ミチル
   class Michiru
     include(Gimite)
 
     def initialize(dir, fixedSettings= {})
-      @recentWordsCt = 40 #最近使った単語を何個記憶するか
+      @recentWordsCt = 40 # 最近使った単語を何個記憶するか
       @fixedSettings = fixedSettings
       @settingPath = dir + "/setting.txt"
       loadSettings
@@ -27,11 +27,11 @@ module Gimite
       @wordSearcher = WordSearcher.new(@wordSet)
       @extractor = WordExtractor.new(14, method(:onAddWord))
       @associator = WordAssociator.new(dir + "/assoc.txt")
-      @recentWordStrs = [] #最近使った単語
-      @similarNicksMap = {} #Nick→その人の最近の発言の類似発言の発言者のリスト
+      @recentWordStrs = [] # 最近使った単語
+      @similarNicksMap = {} # Nick→その人の最近の発言の類似発言の発言者のリスト
     end
 
-    #設定をファイルからロード
+    # 設定をファイルからロード
     def loadSettings
       file = Kernel.open(@settingPath)
       @settings = Hash.new
@@ -47,27 +47,27 @@ module Gimite
       @autoSave = settings("disable_auto_saving") != "true"
     end
 
-    #チャットクライアントの指定
+    # チャットクライアントの指定
     attr_writer(:client)
 
-    #チャットオブジェクト用の設定
+    # チャットオブジェクト用の設定
     def settings(key)
       return @settings[key]
     end
 
-    #Nickを相手のNickに変える
+    # Nickを相手のNickに変える
     def replaceNick(sentence, fromNick)
       nickReg = @myNicks.map{ |x| Regexp.escape(x) }.join("|")
       return sentence.gsub(Regexp.new(nickReg), fromNick)
     end
 
-    #「最近使われた単語」を追加
+    # 「最近使われた単語」を追加
     def addRecentWordStr(wordStr)
       @recentWordStrs.push(wordStr)
       @recentWordStrs.shift if @recentWordStrs.size > @recentWordsCt
     end
 
-    #入力語からの連想を発言にする
+    # 入力語からの連想を発言にする
     def associate
       inputWordStr = @inputWords[rand(@inputWords.size)].str
       assocWordStrs = @associator.associateAll(inputWordStr)
@@ -88,7 +88,7 @@ module Gimite
       end
     end
 
-    #指定の人の中の人を答える
+    # 指定の人の中の人を答える
     def innerPeople(nick)
       nicks = @similarNicksMap[nick]
       if !nicks || nicks.size == 0
@@ -104,18 +104,18 @@ module Gimite
       end
     end
 
-    #学習する
+    # 学習する
     def study(input)
       @extractor.processLine(input)
       @log.addMsg(@fromNick, input)
     end
 
-    #類似発言検索用フィルタ
+    # 類似発言検索用フィルタ
     def similarFilter(_lineN)
       return true
     end
 
-    #類似発言データを蓄積する
+    # 類似発言データを蓄積する
     def storeSimilarData(fromNick, input)
       data = @simSearcher.searchSimilarMsg(input, method(:similarFilter))
       return unless data
@@ -128,7 +128,7 @@ module Gimite
       @similarNicksMap[fromNick] = nicks
     end
 
-    #単語が追加された
+    # 単語が追加された
     def onAddWord(wordStr)
       if @wordSet.addWord(wordStr, @fromNick)
         # @client.outputInfo("単語「"+wordStr+"」を記憶した。")
@@ -136,23 +136,23 @@ module Gimite
       end
     end
 
-    #接続を開始した
+    # 接続を開始した
     def onBeginConnecting
       puts "接続開始..."
     end
 
-    #自分が入室した
+    # 自分が入室した
     def onSelfJoin
     end
 
-    #他人が入室した
+    # 他人が入室した
     def onOtherJoin(fromNick)
     end
 
-    #他人が発言した
+    # 他人が発言した
     def onOtherSpeak(fromNick, input)
       @fromNick = fromNick
-      output = nil #発言
+      output = nil # 発言
       isCalled = false
       @myNicks.each do |nick|
         isCalled = true if (input.index(nick))
@@ -166,11 +166,11 @@ module Gimite
       elsif input =~ /は.*である(。|．)?\s*/
         output = "へぇ〜"
       elsif (isCalled || rand < 0.1) && @inputWords.size > 0
-        #相手の単語から連想する
+        # 相手の単語から連想する
         output = associate
       end
       if isCalled && !output
-        #質問が分からなかった場合は、そのまま訊き返す
+        # 質問が分からなかった場合は、そのまま訊き返す
         output = replaceNick(input, fromNick)
       end
       if output
@@ -178,4 +178,4 @@ module Gimite
       end
     end
   end
-end #module Gimite
+end # module Gimite

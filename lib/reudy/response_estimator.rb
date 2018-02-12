@@ -1,6 +1,6 @@
-#encoding:utf-8
-#Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
-#Modified by Glass_saga <glass.saga@gmail.com>
+# encoding:utf-8
+# Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
+# Modified by Glass_saga <glass.saga@gmail.com>
 
 $REUDY_DIR= "." unless defined?($REUDY_DIR)
 
@@ -10,7 +10,7 @@ require $REUDY_DIR+'/word_searcher'
 require $REUDY_DIR+'/reudy_common'
 
 module Gimite
-  #指定の発言への返事を推定する。
+  # 指定の発言への返事を推定する。
   class ResponseEstimator
     include Gimite
 
@@ -23,24 +23,24 @@ module Gimite
       @cache = {}
     end
 
-    #mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
-    #ただし、@msgFilter.call(返事の番号)を満たすのが条件。
-    #該当するものが無ければ[nil,0]を返す。
-    #debugが真なら、デバッグ出力をする。
+    # mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
+    # ただし、@msgFilter.call(返事の番号)を満たすのが条件。
+    # 該当するものが無ければ[nil,0]を返す。
+    # debugが真なら、デバッグ出力をする。
     def responseTo(mid, _debug = false)
       return [nil, 0] unless mid
       mid += @log.size if mid < 0
-      return @cache[mid] if @cache[mid] && @msgFilter.call(@cache[mid].first) #キャッシュにヒット。
+      return @cache[mid] if @cache[mid] && @msgFilter.call(@cache[mid].first) # キャッシュにヒット。
 
       numTargets = 5
       candMids = (mid+1..mid+numTargets).select{ |n| @msgFilter.call(n) }
       return [nil, 0] if candMids.empty?
-      #この先の判定は重いので、先に「絶対nilになるケース」を除外。
+      # この先の判定は重いので、先に「絶対nilになるケース」を除外。
       words = @wordSearcher.searchWords(@log[mid].body).select{ |w| @wordFilter.call(w) }
       resMid = nil
 
-      #その発言からnumTargets行以内で、同じ単語を含むものが有れば、それを返事とみなす。
-      #無ければ、直後の発言を返事とする。
+      # その発言からnumTargets行以内で、同じ単語を含むものが有れば、それを返事とみなす。
+      # 無ければ、直後の発言を返事とする。
       words.each do |word|
         word.mids.each do |n|
           if n > mid
@@ -53,11 +53,11 @@ module Gimite
           end
         end
       end
-      prob = resMid ? numTargets : 0 #同じ単語を含む方が、返事らしさが高い。
+      prob = resMid ? numTargets : 0 # 同じ単語を含む方が、返事らしさが高い。
       resMid = candMids.first unless resMid
-      prob += numTargets + 1 - (resMid-mid) #近い発言の方が、返事らしさが高い。
+      prob += numTargets + 1 - (resMid-mid) # 近い発言の方が、返事らしさが高い。
 
-      #キャッシュしておく。
+      # キャッシュしておく。
       @cache.clear if @cache.size >= @cacheLimit
       @cache[mid] = [resMid, prob]
 
