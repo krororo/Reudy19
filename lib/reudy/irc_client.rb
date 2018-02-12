@@ -221,11 +221,11 @@ class IRCC
   # メッセージを表示(文字コードは変換しない)
   def dispmess(nick, mess)
     buff = Time.now.strftime('%H:%M:%S ')
-    if nick
-      buff = "#{buff}#{nick} #{mess}"
-    else
-      buff = "#{buff}#{mess}"
-    end
+    buff = if nick
+             "#{buff}#{nick} #{mess}"
+           else
+             "#{buff}#{mess}"
+           end
     @disp.puts buff
   end
 

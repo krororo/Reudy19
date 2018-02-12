@@ -33,11 +33,11 @@ module Gimite
       updateRecentSpeakers(from_nick)
 
       # 今回の発言率を求める。
-      if called || recentOtherSpeakers.size == 1
-        prob = @calledProb
-      else
-        prob = @prob
-      end
+      prob = if called || recentOtherSpeakers.size == 1
+               @calledProb
+             else
+               @prob
+             end
 
       # 発言率を更新。
       if called

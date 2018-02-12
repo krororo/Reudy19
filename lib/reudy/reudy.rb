@@ -82,11 +82,12 @@ module Gimite
       # メンバ変数を更新
       @targetNickReg = Regexp.new(@settings[:target_nick] || "", Regexp::IGNORECASE)
       # これにマッチしないNickの発言は、ベース発言として使用不能
-      if @settings[:forbidden_nick] && !@settings[:forbidden_nick].empty?
-        @forbiddenNickReg = Regexp.new(@settings[:forbidden_nick], Regexp::IGNORECASE)
-      else
-        @forbiddenNickReg = /(?!)/o # 何にもマッチしない正規表現
-      end
+      @forbiddenNickReg =
+        if @settings[:forbidden_nick] && !@settings[:forbidden_nick].empty?
+          Regexp.new(@settings[:forbidden_nick], Regexp::IGNORECASE)
+        else
+          /(?!)/o # 何にもマッチしない正規表現
+        end
       @myNicks = @settings[:nicks] # これにマッチするNickの発言は、ベース発言として使用不能
       @my_nicks_regexp = Regexp.new(@myNicks.map { |n| Regexp.escape(n) }.join("|"))
       changeMode(@settings[:default_mode].to_i) # デフォルトのモードに変更
@@ -398,11 +399,7 @@ module Gimite
         if baseMsgN
           output = getBaseMsgStr(baseMsgN)
           unless @wordSearcher.searchWords(output).empty?
-            if mustRespond
-              output = replaceWords(output, @inputWords, true)
-            else
-              output = nil
-            end
+            output = mustRespond ? replaceWords(output, @inputWords, true) : nil
           end
           recordThought(3, simMsgN, baseMsgN, @inputWords, output) if output
         else
