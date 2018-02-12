@@ -45,12 +45,6 @@ Naming/VariableName:
     - 'lib/reudy/wtml_manager.rb'
     - 'stdio_reudy.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Performance/Casecmp:
-  Exclude:
-    - 'lib/reudy/irc_client.rb'
-
 # Offense count: 1
 Security/MarshalLoad:
   Exclude:

@@ -34,5 +34,8 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 28
 
+Performance/Casecmp:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
