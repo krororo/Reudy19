@@ -1,4 +1,3 @@
-# ncoding:utf-8
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 

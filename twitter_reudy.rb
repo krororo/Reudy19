@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
 
 $REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)

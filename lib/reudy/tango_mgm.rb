@@ -1,4 +1,3 @@
-# encoding:utf-8
 # !/usr/bin/ruby
 #----------------------------------------------------------------------------
 # Copyright (C) 2003 mita-K, NAKAUE.T (Meister), Gimite 市川

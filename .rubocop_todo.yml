@@ -58,22 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/gdbm.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango_mecab.rb'
-    - 'lib/reudy/tango_mgm.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 2
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: for, each
