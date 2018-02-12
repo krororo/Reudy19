@@ -6,7 +6,7 @@ Layout/SpaceInsideHashLiteralBraces:
 Metrics/AbcSize:
   Max: 50
   Exclude:
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/reudy.rb'
 
 Metrics/BlockLength:
@@ -25,7 +25,7 @@ Metrics/LineLength:
   Max: 120
   Exclude:
     - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_searcher.rb'
 
 Metrics/MethodLength:

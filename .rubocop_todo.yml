@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.
-# AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
-Naming/FileName:
-  Exclude:
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
-
 # Offense count: 97
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: snake_case, camelCase
@@ -27,8 +18,8 @@ Naming/MethodName:
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mecab.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_associator.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'lib/reudy/wordset.rb'
@@ -48,8 +39,8 @@ Naming/VariableName:
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mecab.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'lib/reudy/wtml_manager.rb'
     - 'stdio_reudy.rb'
@@ -58,7 +49,7 @@ Naming/VariableName:
 # Cop supports --auto-correct.
 Performance/Casecmp:
   Exclude:
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
 
 # Offense count: 1
 Security/MarshalLoad:
@@ -92,7 +83,7 @@ Style/CommentedKeyword:
 Style/ConditionalAssignment:
   Exclude:
     - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/reudy.rb'
 
 # Offense count: 16
@@ -101,14 +92,14 @@ Style/Documentation:
     - 'spec/**/*'
     - 'test/**/*'
     - 'irc_reudy.rb'
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/pstore.rb'
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/reudy_common.rb'
     - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mecab.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/thought_view.rb'
     - 'lib/reudy/wordset.rb'
     - 'lingr_reudy.rb'
@@ -136,7 +127,7 @@ Style/EmptyLiteral:
 Style/EmptyMethod:
   Exclude:
     - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/michiru.rb'
     - 'lib/reudy/reudy.rb'
 
@@ -151,8 +142,8 @@ Style/Encoding:
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mecab.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'twitter_reudy.rb'
 
@@ -265,7 +256,7 @@ Style/MixinUsage:
 # Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
-    - 'lib/reudy/tango-mecab.rb'
+    - 'lib/reudy/tango_mecab.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -296,13 +287,13 @@ Style/NumericPredicate:
 # Offense count: 1
 Style/OptionalArguments:
   Exclude:
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/OrAssignment:
   Exclude:
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/michiru.rb'
     - 'lib/reudy/response_estimator.rb'
 
@@ -319,7 +310,7 @@ Style/PerlBackrefs:
   Exclude:
     - 'lib/reudy/michiru.rb'
     - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'stdio_reudy.rb'
 
@@ -340,8 +331,8 @@ Style/RedundantReturn:
     - 'lib/reudy/michiru.rb'
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mecab.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'lib/reudy/wordset.rb'
 
@@ -351,7 +342,7 @@ Style/RedundantReturn:
 # SupportedStyles: slashes, percent_r, mixed
 Style/RegexpLiteral:
   Exclude:
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mgm.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -367,7 +358,7 @@ Style/RescueStandardError:
 # Cop supports --auto-correct.
 Style/SelfAssignment:
   Exclude:
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mgm.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -385,13 +376,13 @@ Style/StringLiterals:
     - 'irc_reudy.rb'
     - 'lib/reudy/attention_decider.rb'
     - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/message_log.rb'
     - 'lib/reudy/michiru.rb'
     - 'lib/reudy/response_estimator.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/tango_mgm.rb'
     - 'lib/reudy/thought_view.rb'
     - 'lib/reudy/word_searcher.rb'
     - 'lib/reudy/wordset.rb'
@@ -415,12 +406,6 @@ Style/StringLiteralsInInterpolation:
 Style/SymbolProc:
   Exclude:
     - 'lib/reudy/reudy.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/WhileUntilDo:
-  Exclude:
-    - 'lib/reudy/tango-mecab.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
