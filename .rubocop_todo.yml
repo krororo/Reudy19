@@ -6,38 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 23
-Metrics/AbcSize:
-  Max: 96
-
-# Offense count: 1
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 28
-
-# Offense count: 4
-# Configuration parameters: CountBlocks.
-Metrics/BlockNesting:
-  Max: 4
-
-# Offense count: 5
-# Configuration parameters: CountComments.
-Metrics/ClassLength:
-  Max: 469
-
-# Offense count: 11
-Metrics/CyclomaticComplexity:
-  Max: 32
-
-# Offense count: 34
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 97
-
-# Offense count: 11
-Metrics/PerceivedComplexity:
-  Max: 28
-
 # Offense count: 2
 Naming/ConstantName:
   Exclude:
@@ -473,9 +441,3 @@ Style/YodaCondition:
 Style/ZeroLengthPredicate:
   Exclude:
     - 'lib/reudy/michiru.rb'
-
-# Offense count: 43
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 145

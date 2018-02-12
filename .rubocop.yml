@@ -3,7 +3,36 @@ inherit_from: .rubocop_todo.yml
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-Style/AsciiComments:
+Metrics/AbcSize:
+  Max: 50
+  Exclude:
+    - 'lib/reudy/irc-client.rb'
+    - 'lib/reudy/reudy.rb'
+
+Metrics/BlockLength:
+  Max: 28
+
+Metrics/BlockNesting:
+  Max: 4
+
+Metrics/CyclomaticComplexity:
+  Max: 32
+
+Metrics/ClassLength:
   Enabled: false
 
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'lib/reudy/reudy.rb'
+    - 'lib/reudy/tango-mgm.rb'
+    - 'lib/reudy/word_searcher.rb'
 
+Metrics/MethodLength:
+  Max: 100
+
+Metrics/PerceivedComplexity:
+  Max: 28
+
+Style/AsciiComments:
+  Enabled: false
