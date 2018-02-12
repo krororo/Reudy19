@@ -158,7 +158,7 @@ module Gimite
         output = innerPeople($1)
       elsif input =~ /は.*である(。|．)?\s*/
         output = "へぇ〜"
-      elsif (isCalled || rand < 0.1) && @inputWords.size > 0
+      elsif (isCalled || rand < 0.1) && !@inputWords.empty?
         # 相手の単語から連想する
         output = associate
       end

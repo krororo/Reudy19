@@ -57,9 +57,3 @@ Security/YAMLLoad:
     - 'lib/reudy/message_log.rb'
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
