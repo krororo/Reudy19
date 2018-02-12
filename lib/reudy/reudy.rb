@@ -343,7 +343,7 @@ module Gimite
         end
       end
       #先頭から2番目以降の単語の直前でカットしたりしなかったり。
-      wordCt =  (parts.size-1) / 2
+      wordCt = (parts.size-1) / 2
       if parts.size > 1
         cutPos = rand(wordCt) * 2 + 1
         parts.replace(parts[cutPos..-1].unshift("")) if cutPos > 1

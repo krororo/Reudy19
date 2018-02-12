@@ -91,7 +91,7 @@ class Michiru
   #指定の人の中の人を答える
   def innerPeople(nick)
     nicks = @similarNicksMap[nick]
-    if !nicks || nicks.size ==  0
+    if !nicks || nicks.size == 0
       return nick + "の中の人はいません。"
     else
       nicks0 = nicks.uniq.sort.reverse

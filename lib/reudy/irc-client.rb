@@ -122,9 +122,9 @@ class IRCC
           on_external_priv(param[0], nick, param[1], mess) # 今いるチャンネルの外からの発言
         end
       end
-    when '372', '375'    # MOTD(Message Of The Day)
+    when '372', '375' # MOTD(Message Of The Day)
       on_motd(param[-1])
-    when '353'      # チャンネル参加メンバーのリスト
+    when '353' # チャンネル参加メンバーのリスト
       @nicklist += param[-1].gsub(/@/,'').split
     when 'JOIN' # 誰かがチャンネルに参加した
       channel = param[1]
@@ -172,15 +172,15 @@ class IRCC
         @nicklist.delete(nick)
         on_kick(nick,channel,mess,kicker)
       end
-    when 'NICK'     # 誰かがNICKを変更した
+    when 'NICK' # 誰かがNICKを変更した
       nick_new = param[1]
       @irc_nick = nick_new if nick == @irc_nick
       @nicklist.delete(nick)
       @nicklist |= [nick_new]
       on_nick(nick,nick_new)
-    when 'INVITE'     # 誰かが自分を招待した
+    when 'INVITE' # 誰かが自分を招待した
       on_myinvite(nick,param[-1]) if param[1] == @irc_nick
-    when 'PING'     # クライアントの生存確認
+    when 'PING' # クライアントの生存確認
       if @myhostname
         sendmess("PONG #{@myhostname} #{param[1]}\r\n")
       else
@@ -188,19 +188,19 @@ class IRCC
         # 正確なクライアントのホスト名が不明なため、適当なPONGを返す
         sendmess("PONG dummy #{param[1]}\r\n")
       end
-    when '376','422'    # MOTDの終わり=ログインシーケンスの終わり
+    when '376','422' # MOTDの終わり=ログインシーケンスの終わり
       # 自分のprefixを確認するためWHOISを発行
       sendmess("WHOIS #{@irc_nick}\r\n")
-    when '311'      # WHOISへの応答
+    when '311' # WHOISへの応答
       unless @myprefix
         # 自分のprefixを取得
         @myhostname = param[4]
         @myprefix = "#{param[3]}@#{@myhostname}"
         on_login
       end
-    when '433'      # nickが重複した
-      on_error('433')  # 正しくは重複しないnickで再度NICKを発行
-    when '451'      # 認証されていない
+    when '433' # nickが重複した
+      on_error('433') # 正しくは重複しないnickで再度NICKを発行
+    when '451' # 認証されていない
       on_error('451')
       @disp.puts('unknown login sequence!!')
     end
@@ -301,6 +301,6 @@ class IRCC
   # エラーの時の処理
   def on_error(code)
     @disp.puts "Error: #{code}"
-    sendmess("QUIT\r\n")  # 面倒なので終了にしている
+    sendmess("QUIT\r\n") # 面倒なので終了にしている
   end
 end

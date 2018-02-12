@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/reudy.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.
