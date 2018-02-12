@@ -7,7 +7,7 @@ $REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
 Interval = 60 # タイムラインを取得する間隔
 Abort_on_API_limit = false # API制限に引っかかった時にabortするかどうか
 
-trap(:INT){ exit }
+trap(:INT) { exit }
 
 require 'optparse'
 require 'rubytter'

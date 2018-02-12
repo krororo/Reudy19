@@ -14,7 +14,7 @@ module Gimite
   class ResponseEstimator
     include Gimite
 
-    def initialize(log, wordSearcher, msgFilter = proc{ true }, wordFilter = proc{ true })
+    def initialize(log, wordSearcher, msgFilter = proc { true }, wordFilter = proc { true })
       @cacheLimit = 40
       @log = log
       @wordSearcher = wordSearcher
@@ -33,10 +33,10 @@ module Gimite
       return @cache[mid] if @cache[mid] && @msgFilter.call(@cache[mid].first) # キャッシュにヒット。
 
       numTargets = 5
-      candMids = (mid + 1..mid + numTargets).select{ |n| @msgFilter.call(n) }
+      candMids = (mid + 1..mid + numTargets).select { |n| @msgFilter.call(n) }
       return [nil, 0] if candMids.empty?
       # この先の判定は重いので、先に「絶対nilになるケース」を除外。
-      words = @wordSearcher.searchWords(@log[mid].body).select{ |w| @wordFilter.call(w) }
+      words = @wordSearcher.searchWords(@log[mid].body).select { |w| @wordFilter.call(w) }
       resMid = nil
 
       # その発言からnumTargets行以内で、同じ単語を含むものが有れば、それを返事とみなす。

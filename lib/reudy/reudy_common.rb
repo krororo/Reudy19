@@ -10,12 +10,12 @@ module Gimite
 
   # contの全ての要素に対してpredが真を返すか。
   def for_all?(cont)
-    cont.all?{|item| yield(item) }
+    cont.all? {|item| yield(item) }
   end
 
   # contの中にpredが真を返す要素が存在するか。
   def there_exists?(cont)
-    cont.any?{|item| yield(item) }
+    cont.any? {|item| yield(item) }
   end
 
   def sigma(range)

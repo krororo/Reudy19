@@ -88,7 +88,7 @@ module Gimite
         @forbiddenNickReg = /(?!)/o # 何にもマッチしない正規表現
       end
       @myNicks = @settings[:nicks] # これにマッチするNickの発言は、ベース発言として使用不能
-      @my_nicks_regexp = Regexp.new(@myNicks.map{|n| Regexp.escape(n) }.join("|"))
+      @my_nicks_regexp = Regexp.new(@myNicks.map {|n| Regexp.escape(n) }.join("|"))
       changeMode(@settings[:default_mode].to_i) # デフォルトのモードに変更
     end
 
@@ -165,7 +165,7 @@ module Gimite
       if @wordSet.words.empty?
         @wordAdoptBorder = 0
       else
-        msgCts = @wordSet.words.map{|w| w.mids.size }
+        msgCts = @wordSet.words.map {|w| w.mids.size }
         msgCts.sort!
         msgCts.reverse!
         @wordAdoptBorder = msgCts[msgCts.size / 50]
@@ -219,16 +219,16 @@ module Gimite
     # 入力文章から既知単語を拾う。
     def pickUpInputWords(input)
       input = replaceMyNicks(input, " ")
-      @newInputWords = @wordSearcher.searchWords(input).select{ |w| canAdoptWord(w) } # 入力に含まれる単語を列挙
+      @newInputWords = @wordSearcher.searchWords(input).select { |w| canAdoptWord(w) } # 入力に含まれる単語を列挙
       # 入力に単語が無い場合は、時々入力語をランダムに変更
       if @newInputWords.empty? && rand(50).zero?
         word = @wordSet.words.sample
         @newInputWords.push(word) if canAdoptWord(word)
       end
       # 連想される単語を追加
-      assoc_words = @newInputWords.map{|w| @associator.associate(w.str) }
+      assoc_words = @newInputWords.map {|w| @associator.associate(w.str) }
       assoc_words.compact!
-      assoc_words.map!{|s| Word.new(s) }
+      assoc_words.map! {|s| Word.new(s) }
       @newInputWords.concat(assoc_words)
       # 入力語の更新
       unless @newInputWords.empty?
@@ -349,7 +349,7 @@ module Gimite
         parts.replace(parts[cutPos..-1].unshift("")) if cutPos > 1
       end
       # 単語を除いた文章が短すぎるものはある確率で却下。
-      if wordCt.nonzero? && !toForce && !shouldAdoptSaying(sigma(0...parts.size){|i| (i % 2).zero? ? parts[i].size : 0 })
+      if wordCt.nonzero? && !toForce && !shouldAdoptSaying(sigma(0...parts.size) {|i| (i % 2).zero? ? parts[i].size : 0 })
         return nil
       end
       # 単語を置換。
@@ -377,7 +377,7 @@ module Gimite
 
     # 自由発言の選び方を記録する。
     def recordThought(pattern, simMid, resMid, words, output)
-      @thoughtFile.puts [@log.size - 1, pattern, simMid, resMid, words.map{ |w| w.str }.join(","), output].join("\t")
+      @thoughtFile.puts [@log.size - 1, pattern, simMid, resMid, words.map { |w| w.str }.join(","), output].join("\t")
     end
 
     # 自由に発言する。
@@ -549,7 +549,7 @@ module Gimite
 
     # 他人が発言した。
     def onOtherSpeak(from_nick, input, should_ignore = false)
-      called = @myNicks.any?{|n| input.include?(n) }
+      called = @myNicks.any? {|n| input.include?(n) }
       output = called ? processCommand(input) : nil # 発言。
       if output
         @client.speak(output) if output != :exit && !output.empty?

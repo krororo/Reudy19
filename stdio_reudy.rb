@@ -11,7 +11,7 @@ require $REUDY_DIR + '/bot_irc_client'
 require $REUDY_DIR + '/reudy'
 require $REUDY_DIR + '/reudy_common'
 
-trap(:INT){ exit }
+trap(:INT) { exit }
 
 module Gimite
   class StdioClient

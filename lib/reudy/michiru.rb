@@ -57,7 +57,7 @@ module Gimite
 
     # Nickを相手のNickに変える
     def replaceNick(sentence, fromNick)
-      nickReg = @myNicks.map{ |x| Regexp.escape(x) }.join("|")
+      nickReg = @myNicks.map { |x| Regexp.escape(x) }.join("|")
       return sentence.gsub(Regexp.new(nickReg), fromNick)
     end
 
@@ -97,7 +97,7 @@ module Gimite
         nicks0 = nicks.uniq.sort.reverse
         str = ""
         for nick0 in nicks0
-          ct = nicks.select(){ |x| x == nick0 }.size
+          ct = nicks.select() { |x| x == nick0 }.size
           str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
         end
         return nick + "の中の人は " + str + "です。"
@@ -160,7 +160,7 @@ module Gimite
       storeSimilarData(fromNick, input)
       study(input) if settings("disable_studying") != "true"
       @inputWords = @wordSearcher.searchWords(input)
-      @inputWords.delete_if{ |word| @myNicks.include?(word.str) }
+      @inputWords.delete_if { |word| @myNicks.include?(word.str) }
       if input =~ /([-a-zA-Z0-9_]+)の中の人/
         output = innerPeople($1)
       elsif input =~ /は.*である(。|．)?\s*/
