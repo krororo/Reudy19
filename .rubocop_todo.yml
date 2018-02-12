@@ -200,11 +200,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'lib/reudy/response_estimator.rb'
 
-# Offense count: 1
-Lint/ShadowingOuterLocalVariable:
-  Exclude:
-    - 'lib/reudy/tango-mgm.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.

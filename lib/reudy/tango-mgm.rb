@@ -124,7 +124,7 @@ class WordExtractor
     intact = str.scan(/[-_0-9a-zA-Z]+|[ー－ァ-ン]+/) #文字列から英数字やカタカナの連続を取り出し、配列に格納する
     str.delete!(*intact) unless intact.empty?
 
-    result = intact.select{|str| checkWordCand(str) } #英数字、カタカナの連続はそのままcheckWordCandにかける
+    result = intact.select{|s| checkWordCand(s) } #英数字、カタカナの連続はそのままcheckWordCandにかける
 
     str_size = str.size
     0.upto(str_size) do |i| #それ以外
