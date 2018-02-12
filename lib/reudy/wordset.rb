@@ -51,7 +51,7 @@ module Gimite
     # 単語を追加
     def addWord(str, author = "")
       return nil if str.empty?
-      i = @words.find_index {|word| str.include?(word.str) }
+      i = @words.find_index { |word| str.include?(word.str) }
       if i && @words[i].str == str # 重複する単語があった場合
         return nil
       else

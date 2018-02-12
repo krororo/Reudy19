@@ -63,7 +63,7 @@ module Gimite
     # 内部データをクリア(デフォルトのログのみ残す)
     def clear
       File.open(@innerFileName, "w") do |f|
-        default = f.lines("\n---").select {|s| YAML.load(s)[:fromNick] == "Default" }
+        default = f.lines("\n---").select { |s| YAML.load(s)[:fromNick] == "Default" }
         f.rewind
         f.puts default.join
         f.truncate(f.size)

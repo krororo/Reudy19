@@ -29,7 +29,7 @@ module Gimite
 
     def clear
       @db.transaction do
-        @db.roots.each {|key| @db.delete(key) }
+        @db.roots.each { |key| @db.delete(key) }
       end
     end
 

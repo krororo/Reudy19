@@ -124,7 +124,7 @@ class WordExtractor
     intact = str.scan(/[-_0-9a-zA-Z]+|[ー－ァ-ン]+/) # 文字列から英数字やカタカナの連続を取り出し、配列に格納する
     str.delete!(*intact) unless intact.empty?
 
-    result = intact.select {|s| checkWordCand(s) } # 英数字、カタカナの連続はそのままcheckWordCandにかける
+    result = intact.select { |s| checkWordCand(s) } # 英数字、カタカナの連続はそのままcheckWordCandにかける
 
     str_size = str.size
     0.upto(str_size) do |i| # それ以外
@@ -152,7 +152,7 @@ class WordExtractor
 
   # 文中で使われている単語を取得
   def extractWords(line, words = [])
-    wordcand = getCandList.select {|word| line.include?(word)} # 単語侯補が文章中に使われてたら単語にする
+    wordcand = getCandList.select { |word| line.include?(word) } # 単語侯補が文章中に使われてたら単語にする
 
     # 新しく加わる単語同士に包含関係があったら短いほうを消去する
     # 例えば「なると」という単語が登録される時に
@@ -160,11 +160,11 @@ class WordExtractor
     wordcand = optimizeWordList(wordcand) unless wordcand.empty?
 
     # 禁則処理
-    wordcand2 = wordcand.select {|word| checkWord(word) }
+    wordcand2 = wordcand.select { |word| checkWord(word) }
 
     words = words | wordcand2 # 新しい単語を本当に単語として認定する。ただしダブる場合は片方を消す。
 
-    words.each {|w| @onAddWord.call(w) } if @onAddWord
+    words.each { |w| @onAddWord.call(w) } if @onAddWord
 
     return words
   end
