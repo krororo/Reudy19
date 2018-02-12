@@ -6,7 +6,7 @@ require $REUDY_DIR+'/message_log'
 require $REUDY_DIR+'/word_searcher'
 
 module Gimite
-#「単語→発言番号」リストを管理するもの。
+  #「単語→発言番号」リストを管理するもの。
   class WordToMessageListManager
     def initialize(wordSet, log, wordSearcher)
       @wordSet = wordSet

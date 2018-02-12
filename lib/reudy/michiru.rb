@@ -132,7 +132,7 @@ class Michiru
   #単語が追加された
   def onAddWord(wordStr)
     if @wordSet.addWord(wordStr, @fromNick)
-#      @client.outputInfo("単語「"+wordStr+"」を記憶した。")
+      # @client.outputInfo("単語「"+wordStr+"」を記憶した。")
       @wordSet.save if @autoSave
     end
   end

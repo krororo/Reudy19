@@ -8,14 +8,6 @@
 
 # Offense count: 3
 # Cop supports --auto-correct.
-Layout/CommentIndentation:
-  Exclude:
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/wtml_manager.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
 Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'lib/reudy/bot_irc_client.rb'
