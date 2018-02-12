@@ -26,8 +26,6 @@ module Gimite
     def associate(word_str)
       if (strs = @assoc_word_map[word_str])
         strs.sample
-      else
-        nil
       end
     end
 

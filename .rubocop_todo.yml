@@ -60,14 +60,6 @@ Security/YAMLLoad:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'lib/reudy/word_associator.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/EmptyLiteral:
   Exclude:
     - 'lib/reudy/michiru.rb'
