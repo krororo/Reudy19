@@ -74,26 +74,6 @@ Style/ConditionalAssignment:
     - 'lib/reudy/irc_client.rb'
     - 'lib/reudy/reudy.rb'
 
-# Offense count: 16
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'irc_reudy.rb'
-    - 'lib/reudy/irc_client.rb'
-    - 'lib/reudy/pstore.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/reudy_common.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango_mecab.rb'
-    - 'lib/reudy/tango_mgm.rb'
-    - 'lib/reudy/thought_view.rb'
-    - 'lib/reudy/wordset.rb'
-    - 'lingr_reudy.rb'
-    - 'stdio_reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
