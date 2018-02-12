@@ -48,13 +48,12 @@ module Gimite
           while (line = sock.gets)
             on_recv(line)
             time = Time.now
-            if time - @prevTime >= SILENT_SECOND
-              @prevTime = time
-              @user.onSilent
-              # 沈黙がしばらく続いた。
-              # 発言が何も無くてもpingProcess()のおかげで定期的にメッセージが飛んでくるので、
-              # ここでチェックすればOK。
-            end
+            next unless time - @prevTime >= SILENT_SECOND
+            @prevTime = time
+            @user.onSilent
+            # 沈黙がしばらく続いた。
+            # 発言が何も無くてもpingProcess()のおかげで定期的にメッセージが飛んでくるので、
+            # ここでチェックすればOK。
           end
           puts "切断されました。"
         rescue SystemCallError, SocketError, IOError => ex

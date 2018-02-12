@@ -325,20 +325,19 @@ module Gimite
       parts = [base]
       @wordSet.words.each do |word|
         next if word.str.empty?
-        if @wordSearcher.hasWord(base, word) && canAdoptWord(word)
-          newParts = []
-          parts.each_with_index do |part, i|
-            if (i % 2).zero?
-              word_regexp = /^(.*?)#{Regexp.escape(word.str)}(.*)$/
-              while part =~ word_regexp
-                newParts.push($1, word.str)
-                part = $2
-              end
+        next unless @wordSearcher.hasWord(base, word) && canAdoptWord(word)
+        newParts = []
+        parts.each_with_index do |part, i|
+          if (i % 2).zero?
+            word_regexp = /^(.*?)#{Regexp.escape(word.str)}(.*)$/
+            while part =~ word_regexp
+              newParts.push($1, word.str)
+              part = $2
             end
-            newParts.push(part)
           end
-          parts = newParts
+          newParts.push(part)
         end
+        parts = newParts
       end
       # 先頭から2番目以降の単語の直前でカットしたりしなかったり。
       wordCt = (parts.size - 1) / 2
@@ -407,11 +406,10 @@ module Gimite
         log_size = @log.size
         2000.times do
           msgN = rand(log_size)
-          if isUsableBaseMsg(msgN)
-            baseMsgN = msgN
-            output = getBaseMsgStr(baseMsgN)
-            break
-          end
+          next unless isUsableBaseMsg(msgN)
+          baseMsgN = msgN
+          output = getBaseMsgStr(baseMsgN)
+          break
         end
       end
       return unless output
