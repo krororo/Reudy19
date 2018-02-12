@@ -58,3 +58,6 @@ Style/NumericPredicate:
 
 Style/PerlBackrefs:
   Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false

@@ -58,16 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/SelfAssignment:
