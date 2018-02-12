@@ -60,12 +60,6 @@ Security/YAMLLoad:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/SelfAssignment:
-  Exclude:
-    - 'lib/reudy/tango_mgm.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: AllowAsExpressionSeparator.
 Style/Semicolon:
   Exclude:

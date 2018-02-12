@@ -161,7 +161,7 @@ class WordExtractor
     # 禁則処理
     wordcand2 = wordcand.select { |word| checkWord(word) }
 
-    words = words | wordcand2 # 新しい単語を本当に単語として認定する。ただしダブる場合は片方を消す。
+    words |= wordcand2 # 新しい単語を本当に単語として認定する。ただしダブる場合は片方を消す。
 
     words.each { |w| @onAddWord.call(w) } if @onAddWord
 
