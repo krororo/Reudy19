@@ -60,12 +60,6 @@ Security/YAMLLoad:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: separated, grouped
 Style/MixinGrouping:

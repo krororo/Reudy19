@@ -91,7 +91,7 @@ module Gimite
       nicks0 = nicks.uniq.sort.reverse
       str = ""
       nicks0.each do |nick0|
-        ct = nicks.select() { |x| x == nick0 }.size
+        ct = nicks.select { |x| x == nick0 }.size
         str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
       end
       return nick + "の中の人は " + str + "です。"
