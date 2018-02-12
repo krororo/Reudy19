@@ -24,7 +24,7 @@ module Gimite
       @innerFileName = inner_filename
       @observers = []
       File.open(inner_filename) do |f|
-        @size = f.lines("\n---").count
+        @size = f.each_line("\n---").count
       end
     end
 
@@ -39,7 +39,7 @@ module Gimite
     def [](n)
       n += @size if n < 0 # 末尾からのインデックス
       File.open(@innerFileName) do |f|
-        line = f.lines("\n---").find { f.lineno > n }
+        line = f.each_line("\n---").find { f.lineno > n }
         return nil unless line && line != "\n---"
         m = YAML.load(line)
         return Message.new(m[:fromNick], m[:body])
@@ -60,7 +60,7 @@ module Gimite
     # 内部データをクリア(デフォルトのログのみ残す)
     def clear
       File.open(@innerFileName, "w") do |f|
-        default = f.lines("\n---").select { |s| YAML.load(s)[:fromNick] == "Default" }
+        default = f.each_line("\n---").select { |s| YAML.load(s)[:fromNick] == "Default" }
         f.rewind
         f.puts default.join
         f.truncate(f.size)
