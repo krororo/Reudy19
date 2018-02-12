@@ -81,7 +81,7 @@ module Gimite
     # 中身をテキスト形式で出力。
     def output(io)
       @words.each do |word|
-        io.puts "#{word.str}\t#{word.author}\t#{word.mids.join(",")}"
+        io.puts "#{word.str}\t#{word.author}\t#{word.mids.join(',')}"
       end
     end
 
