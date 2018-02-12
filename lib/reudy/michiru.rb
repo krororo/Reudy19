@@ -1,13 +1,13 @@
 # encoding:utf-8
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 
-require $REUDY_DIR+'/tango-mgm'
-require $REUDY_DIR+'/wordset'
-require $REUDY_DIR+'/word_searcher'
-require $REUDY_DIR+'/word_associator'
-require $REUDY_DIR+'/message_log'
-require $REUDY_DIR+'/similar_searcher5'
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/tango-mgm'
+require $REUDY_DIR + '/wordset'
+require $REUDY_DIR + '/word_searcher'
+require $REUDY_DIR + '/word_associator'
+require $REUDY_DIR + '/message_log'
+require $REUDY_DIR + '/similar_searcher5'
+require $REUDY_DIR + '/reudy_common'
 
 module Gimite
   # 人工無能ミチル

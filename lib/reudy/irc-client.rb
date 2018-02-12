@@ -160,11 +160,11 @@ class IRCC
       kicker = nick
       channel = param[1]
       nick = param[2]
-      mess = param[3]||''
+      mess = param[3] || ''
       if nick == @irc_nick
         if param[1].downcase == @irc_channel.downcase
           @nicklist = []
-          @joined_channel=nil
+          @joined_channel = nil
         end
         on_mykick(channel, mess, kicker)
         sendmess("QUIT\r\n") if param[1].downcase == @irc_channel.downcase # 蹴られたのでQUIT

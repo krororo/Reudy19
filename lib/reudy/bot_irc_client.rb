@@ -24,12 +24,12 @@ module Gimite
       @user.client = self
       @user.onBeginConnecting
       option = {
-        'user'=>@user.settings[:name], \
-        'realname'=>@user.settings[:real_name], \
-        'pass'=>@user.settings[:login_password].to_s, \
-        'nick'=>@nick, \
-        'channel'=>@channel, \
-        'channel_key'=>@user.settings[:channel_key].to_s \
+        'user' => @user.settings[:name], \
+        'realname' => @user.settings[:real_name], \
+        'pass' => @user.settings[:login_password].to_s, \
+        'nick' => @nick, \
+        'channel' => @channel, \
+        'channel_key' => @user.settings[:channel_key].to_s \
       }
       super(nil, option, __ENCODING__.to_s, logOut, @user.settings[:encoding] || "ISO-2022-JP")
     end
@@ -148,7 +148,7 @@ module Gimite
     # 普通のメッセージ
     def onPriv(type, nick, mess)
       if nick != @nick && (@user.settings[:respond_to_notice] || type == "PRIVMSG")
-        @prevTime= Time.now
+        @prevTime = Time.now
         @receiveQue.push([nick, mess.strip])
       end
     end
@@ -217,12 +217,12 @@ module Gimite
         while args
           sleep(@user.settings[:wait_before_speak].to_f * (0.5 + rand)) if @user.settings[:wait_before_speak]
           if @receiveQue.empty?
-            @user.onOtherSpeak(*(args+[false]))
+            @user.onOtherSpeak(*(args + [false]))
             break
           end
           until @receiveQue.empty? && args
             # ウエイト中に他の人の発言が入った場合、前の発言は極力無視する。
-            @user.onOtherSpeak(*(args+[true]))
+            @user.onOtherSpeak(*(args + [true]))
             args = popMessage
             return unless args
           end

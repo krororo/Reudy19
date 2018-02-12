@@ -1,4 +1,4 @@
-$REUDY_DIR= "." unless defined?($REUDY_DIR)
+$REUDY_DIR = "." unless defined?($REUDY_DIR)
 
 require "./message_log"
 require "ostruct"
@@ -17,7 +17,7 @@ module Gimite
       (r.words_str, r.output) = fields[4...6]
       r.input = log[r.input_mid].body
       r.messages = []
-      (r.sim_mid...r.sim_mid+6).each do |mid|
+      (r.sim_mid...r.sim_mid + 6).each do |mid|
         m = OpenStruct.new
         m.nick = log[mid].fromNick
         m.body = log[mid].body

@@ -3,13 +3,13 @@
 
 # 日本語文字コード判定用コメント
 
-$OUT_KCODE= "UTF-8" # 出力文字コード
-$REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
+$OUT_KCODE = "UTF-8" # 出力文字コード
+$REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
 
 require 'optparse'
-require $REUDY_DIR+'/bot_irc_client'
-require $REUDY_DIR+'/reudy'
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/bot_irc_client'
+require $REUDY_DIR + '/reudy'
+require $REUDY_DIR + '/reudy_common'
 
 trap(:INT){ exit }
 

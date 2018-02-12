@@ -2,15 +2,15 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-require $REUDY_DIR+'/wordset'
-require $REUDY_DIR+'/word_searcher'
-require $REUDY_DIR+'/message_log'
-require $REUDY_DIR+'/similar_searcher'
-require $REUDY_DIR+'/word_associator'
-require $REUDY_DIR+'/wtml_manager'
-require $REUDY_DIR+'/attention_decider'
-require $REUDY_DIR+'/response_estimator'
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/wordset'
+require $REUDY_DIR + '/word_searcher'
+require $REUDY_DIR + '/message_log'
+require $REUDY_DIR + '/similar_searcher'
+require $REUDY_DIR + '/word_associator'
+require $REUDY_DIR + '/wtml_manager'
+require $REUDY_DIR + '/attention_decider'
+require $REUDY_DIR + '/response_estimator'
+require $REUDY_DIR + '/reudy_common'
 require 'yaml'
 
 unless Encoding.default_external == __ENCODING__
@@ -30,13 +30,13 @@ module Gimite
       @db = db # 使用するDBの名前
       if mecab
         begin
-          require $REUDY_DIR+'/tango-mecab' # 単語の抽出にmecabを使用する
+          require $REUDY_DIR + '/tango-mecab' # 単語の抽出にmecabを使用する
         rescue => ex
           warn ex.message
-          require $REUDY_DIR+'/tango-mgm'
+          require $REUDY_DIR + '/tango-mgm'
         end
       else
-        require $REUDY_DIR+'/tango-mgm'
+        require $REUDY_DIR + '/tango-mgm'
       end
       @fixedSettings = fixedSettings
       @settingPath = dir + '/setting.yml'
@@ -196,8 +196,8 @@ module Gimite
     # 該当するものが無ければ[nil,0]を返す。
     def responseTo(mid, debug = false)
       if @settings[:teacher_mode]
-        if isUsableBaseMsg(mid+1) && @log[mid].fromNick == "!input"
-          return [mid+1, 20]
+        if isUsableBaseMsg(mid + 1) && @log[mid].fromNick == "!input"
+          return [mid + 1, 20]
         else
           return [nil, 0]
         end
@@ -343,7 +343,7 @@ module Gimite
         end
       end
       # 先頭から2番目以降の単語の直前でカットしたりしなかったり。
-      wordCt = (parts.size-1) / 2
+      wordCt = (parts.size - 1) / 2
       if parts.size > 1
         cutPos = rand(wordCt) * 2 + 1
         parts.replace(parts[cutPos..-1].unshift("")) if cutPos > 1
@@ -355,9 +355,9 @@ module Gimite
       # 単語を置換。
       new_words.shuffle.each do |new_word|
         new_word_str = new_word.str
-        old_word_str = parts[rand(wordCt)*2+1]
-        0.upto(wordCt-1) do |j|
-          parts[j*2+1] = new_word_str if parts[j*2+1] == old_word_str
+        old_word_str = parts[rand(wordCt) * 2 + 1]
+        0.upto(wordCt - 1) do |j|
+          parts[j * 2 + 1] = new_word_str if parts[j * 2 + 1] == old_word_str
         end
         break if rand < 0.5
       end
@@ -377,7 +377,7 @@ module Gimite
 
     # 自由発言の選び方を記録する。
     def recordThought(pattern, simMid, resMid, words, output)
-      @thoughtFile.puts [@log.size-1, pattern, simMid, resMid, words.map{ |w| w.str }.join(","), output].join("\t")
+      @thoughtFile.puts [@log.size - 1, pattern, simMid, resMid, words.map{ |w| w.str }.join(","), output].join("\t")
     end
 
     # 自由に発言する。

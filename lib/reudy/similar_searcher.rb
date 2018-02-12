@@ -3,11 +3,11 @@
 # Modified by Glass_saga <glass.saga@gmail.com>
 
 # 文尾だけを使った類似判定。
-$REUDY_DIR= "." unless defined?($REUDY_DIR)
+$REUDY_DIR = "." unless defined?($REUDY_DIR)
 
 require 'set'
-require $REUDY_DIR+'/reudy_common'
-require $REUDY_DIR+'/message_log'
+require $REUDY_DIR + '/reudy_common'
+require $REUDY_DIR + '/message_log'
 
 module Gimite
   # 類似発言検索器。
@@ -45,7 +45,7 @@ module Gimite
         wtail = ws[-@compLen..-1] # 文尾。
         randomEach(@tailMap[wtail], &block)
         0.upto(@compLen.pred) do |i|
-          randomEach(@tailMap[wtail[0...i] + wtail[i+1..-1] ], &block) # 途中を1文字抜かしたもの。
+          randomEach(@tailMap[wtail[0...i] + wtail[i + 1..-1] ], &block) # 途中を1文字抜かしたもの。
         end
       else
         randomEach(@tailMap[ws], &block)
@@ -83,7 +83,7 @@ module Gimite
       if @tailMap.empty?
         warn "文尾辞書( #{fileName})を作成中..."
         0.upto(@log.size.pred) do |i|
-          warn "#{i+1}行目..." if ((i+1) % 1000).zero?
+          warn "#{i + 1}行目..." if ((i + 1) % 1000).zero?
           recordTail(i)
         end
       end
@@ -97,7 +97,7 @@ module Gimite
         wtail = ws[-@compLen..-1] # 文尾。
         addToTailMap(wtail, line_n)
         0.upto(@compLen.pred) do |i|
-          addToTailMap(wtail[0...i]+wtail[i+1..-1], line_n) # 途中を1文字抜かしたもの。
+          addToTailMap(wtail[0...i] + wtail[i + 1..-1], line_n) # 途中を1文字抜かしたもの。
         end
       else
         addToTailMap(ws, line_n)

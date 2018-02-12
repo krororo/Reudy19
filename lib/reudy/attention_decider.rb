@@ -3,7 +3,7 @@
 # Modified by Glass_saga <glass.saga@gmail.com>
 
 # 文尾だけを使った類似判定。
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/reudy_common'
 
 module Gimite
   # 注目判定器。
@@ -78,7 +78,7 @@ module Gimite
     # 発言率を上げ下げする。
     # 上げ率rateは、発言率の変動範囲(@probRange)に対する割合で指定する。
     def raiseProbability(rate)
-      @prob = [[@prob+rate*@probRange, @maxProb].min, @minProb].max
+      @prob = [[@prob + rate * @probRange, @maxProb].min, @minProb].max
     end
 
     def updateRecentSpeakers(nick)

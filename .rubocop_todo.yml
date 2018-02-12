@@ -6,29 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 93
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceAroundOperators:
-  Exclude:
-    - 'irc_reudy.rb'
-    - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/message_log.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mgm.rb'
-    - 'lib/reudy/thought_view.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'lib/reudy/wordset.rb'
-    - 'lib/reudy/wtml_manager.rb'
-    - 'lingr_reudy.rb'
-    - 'stdio_reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.

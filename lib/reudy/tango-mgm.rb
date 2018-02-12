@@ -129,7 +129,7 @@ class WordExtractor
     str_size = str.size
     0.upto(str_size) do |i| # それ以外
       i.upto(str_size) do |j|
-        cand = checkWordCand(str[i..j], str[0...i], str[j+1..-1])
+        cand = checkWordCand(str[i..j], str[0...i], str[j + 1..-1])
         result << cand if cand
       end
     end

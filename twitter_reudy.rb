@@ -2,7 +2,7 @@
 
 # Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
 
-$REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
+$REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
 
 Interval = 60 # タイムラインを取得する間隔
 Abort_on_API_limit = false # API制限に引っかかった時にabortするかどうか
@@ -13,9 +13,9 @@ require 'optparse'
 require 'rubytter'
 require 'highline'
 require 'time'
-require $REUDY_DIR+'/bot_irc_client'
-require $REUDY_DIR+'/reudy'
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/bot_irc_client'
+require $REUDY_DIR + '/reudy'
+require $REUDY_DIR + '/reudy_common'
 
 module Gimite
   class TwitterClient
@@ -30,18 +30,18 @@ module Gimite
       secret = user.settings[:twitter][:secret]
       cons = OAuth::Consumer.new(key, secret, :site => "http://api.twitter.com")
 
-      unless File.exist?(File.dirname(__FILE__)+"/token")
+      unless File.exist?(File.dirname(__FILE__) + "/token")
         request_token = cons.get_request_token
         puts "Access This URL and press 'Allow' => #{request_token.authorize_url}"
         pin = HighLine.new.ask('Input key shown by twitter: ')
         access_token = request_token.get_access_token(:oauth_verifier => pin)
-        open(File.dirname(__FILE__)+"/token", "w") do |f|
+        open(File.dirname(__FILE__) + "/token", "w") do |f|
           f.puts access_token.token
           f.puts access_token.secret
         end
       end
 
-      keys = File.read(File.dirname(__FILE__)+"/token").split(/\r?\n/).map(&:chomp)
+      keys = File.read(File.dirname(__FILE__) + "/token").split(/\r?\n/).map(&:chomp)
 
       token = OAuth::AccessToken.new(cons, keys[0], keys[1])
 

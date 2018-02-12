@@ -2,12 +2,12 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-$REUDY_DIR= "." unless defined?($REUDY_DIR)
+$REUDY_DIR = "." unless defined?($REUDY_DIR)
 
-require $REUDY_DIR+'/message_log'
-require $REUDY_DIR+'/wordset'
-require $REUDY_DIR+'/word_searcher'
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/message_log'
+require $REUDY_DIR + '/wordset'
+require $REUDY_DIR + '/word_searcher'
+require $REUDY_DIR + '/reudy_common'
 
 module Gimite
   # 指定の発言への返事を推定する。
@@ -33,7 +33,7 @@ module Gimite
       return @cache[mid] if @cache[mid] && @msgFilter.call(@cache[mid].first) # キャッシュにヒット。
 
       numTargets = 5
-      candMids = (mid+1..mid+numTargets).select{ |n| @msgFilter.call(n) }
+      candMids = (mid + 1..mid + numTargets).select{ |n| @msgFilter.call(n) }
       return [nil, 0] if candMids.empty?
       # この先の判定は重いので、先に「絶対nilになるケース」を除外。
       words = @wordSearcher.searchWords(@log[mid].body).select{ |w| @wordFilter.call(w) }
@@ -55,7 +55,7 @@ module Gimite
       end
       prob = resMid ? numTargets : 0 # 同じ単語を含む方が、返事らしさが高い。
       resMid = candMids.first unless resMid
-      prob += numTargets + 1 - (resMid-mid) # 近い発言の方が、返事らしさが高い。
+      prob += numTargets + 1 - (resMid - mid) # 近い発言の方が、返事らしさが高い。
 
       # キャッシュしておく。
       @cache.clear if @cache.size >= @cacheLimit
@@ -67,13 +67,13 @@ module Gimite
 
   if __FILE__ == $PROGRAM_NAME
     dir = ARGV[0]
-    log = MessageLog.new(dir+"/log.dat")
-    wordSet = WordSet.new(dir+"/words.dat")
+    log = MessageLog.new(dir + "/log.dat")
+    wordSet = WordSet.new(dir + "/words.dat")
     wordSearcher = WordSearcher.new(wordSet)
     resEst = ResponseEstimator.new(log, wordSearcher)
     ARGV[1..-1].map(&:to_i).each do |mid|
       printf("[%d]%s:\n", mid, log[mid].body)
-      resMid, prob= resEst.responseTo(mid, true)
+      resMid, prob = resEst.responseTo(mid, true)
       printf("  [%d]%s (%d)\n", resMid, log[resMid].body, prob) if resMid
     end
   end

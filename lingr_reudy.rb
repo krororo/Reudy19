@@ -1,9 +1,9 @@
 # Copyright (C) 2011 Glass_saga <glass.saga@gmail.com>
-$REUDY_DIR= "./lib/reudy" unless defined?($REUDY_DIR)
+$REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
 
 require 'sinatra'
 require 'json'
-require $REUDY_DIR+'/reudy'
+require $REUDY_DIR + '/reudy'
 
 class Lingr
   def initialize

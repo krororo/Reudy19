@@ -2,7 +2,7 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-require $REUDY_DIR+'/wordset'
+require $REUDY_DIR + '/wordset'
 
 KANA_AN = Regexp.compile("([ァ-ンー−][ァ-ンー−]|[a-zA-Z][a-zA-Z])") # #カタカナ又は英数
 

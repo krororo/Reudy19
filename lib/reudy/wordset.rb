@@ -1,7 +1,7 @@
 # Copyright (C) 2003 Gimite 市川 <gimite@mx12.freecom.ne.jp>
 # Modified by Glass_saga <glass.saga@gmail.com>
 
-require $REUDY_DIR+'/reudy_common'
+require $REUDY_DIR + '/reudy_common'
 
 module Gimite
   class Word # 単語クラス
@@ -41,7 +41,7 @@ module Gimite
     def initialize(filename)
       @filename = filename
       @added_words = []
-      File.open(filename, File::RDONLY|File::CREAT) do |f|
+      File.open(filename, File::RDONLY | File::CREAT) do |f|
         @words = YAML.load(f) || []
       end
     end
