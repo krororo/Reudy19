@@ -54,7 +54,7 @@ class IRCC
     @disp = disp
   end
 
-  attr_accessor :sock,:userinfo,:nicklist,:irc_nick,:joined_channel
+  attr_accessor :sock, :userinfo, :nicklist, :irc_nick, :joined_channel
 
   # インスタンス生成後のソケット接続
   def connect(sock)
@@ -125,7 +125,7 @@ class IRCC
     when '372', '375' # MOTD(Message Of The Day)
       on_motd(param[-1])
     when '353' # チャンネル参加メンバーのリスト
-      @nicklist += param[-1].gsub(/@/,'').split
+      @nicklist += param[-1].gsub(/@/, '').split
     when 'JOIN' # 誰かがチャンネルに参加した
       channel = param[1]
       if @myprefix == prefix
@@ -145,7 +145,7 @@ class IRCC
         sendmess("QUIT\r\n") if param[1].downcase == @irc_channel.downcase
       else
         @nicklist.delete(nick)
-        on_part(nick,channel)
+        on_part(nick, channel)
       end
     when 'QUIT' # 誰かが終了した
       mess = param[-1]
@@ -154,7 +154,7 @@ class IRCC
         on_myquit(mess)
       else
         @nicklist.delete(nick)
-        on_quit(nick,mess)
+        on_quit(nick, mess)
       end
     when 'KICK' # 誰かがチャンネルから蹴られた
       kicker = nick
@@ -166,20 +166,20 @@ class IRCC
           @nicklist = []
           @joined_channel=nil
         end
-        on_mykick(channel,mess,kicker)
+        on_mykick(channel, mess, kicker)
         sendmess("QUIT\r\n") if param[1].downcase == @irc_channel.downcase # 蹴られたのでQUIT
       else
         @nicklist.delete(nick)
-        on_kick(nick,channel,mess,kicker)
+        on_kick(nick, channel, mess, kicker)
       end
     when 'NICK' # 誰かがNICKを変更した
       nick_new = param[1]
       @irc_nick = nick_new if nick == @irc_nick
       @nicklist.delete(nick)
       @nicklist |= [nick_new]
-      on_nick(nick,nick_new)
+      on_nick(nick, nick_new)
     when 'INVITE' # 誰かが自分を招待した
-      on_myinvite(nick,param[-1]) if param[1] == @irc_nick
+      on_myinvite(nick, param[-1]) if param[1] == @irc_nick
     when 'PING' # クライアントの生存確認
       if @myhostname
         sendmess("PONG #{@myhostname} #{param[1]}\r\n")
@@ -188,7 +188,7 @@ class IRCC
         # 正確なクライアントのホスト名が不明なため、適当なPONGを返す
         sendmess("PONG dummy #{param[1]}\r\n")
       end
-    when '376','422' # MOTDの終わり=ログインシーケンスの終わり
+    when '376', '422' # MOTDの終わり=ログインシーケンスの終わり
       # 自分のprefixを確認するためWHOISを発行
       sendmess("WHOIS #{@irc_nick}\r\n")
     when '311' # WHOISへの応答
@@ -219,7 +219,7 @@ class IRCC
   # ここから下はオーバーライドする事を想定している
 
   # メッセージを表示(文字コードは変換しない)
-  def dispmess(nick,mess)
+  def dispmess(nick, mess)
     buff = Time.now.strftime('%H:%M:%S ')
     if nick
       buff = "#{buff}#{nick} #{mess}"
@@ -236,66 +236,66 @@ class IRCC
 
   # MOTD(サーバのログインメッセージ)
   def on_motd(mess)
-    dispmess(nil,mess)
+    dispmess(nil, mess)
   end
 
   # 通常メッセージ受信時の処理
-  def on_priv(_type,nick,mess)
-    dispmess("<#{nick}>",mess)
+  def on_priv(_type, nick, mess)
+    dispmess("<#{nick}>", mess)
   end
 
   # 今いるチャンネルの外からの通常メッセージ受信時の処理
-  def on_external_priv(type,nick,channel,mess)
+  def on_external_priv(type, nick, channel, mess)
   end
 
   # JOIN受信時の処理
-  def on_join(nick,channel)
-    dispmess(nick,"JOIN #{channel}")
+  def on_join(nick, channel)
+    dispmess(nick, "JOIN #{channel}")
   end
 
   # PART受信時の処理
-  def on_part(nick,channel)
-    dispmess(nick,"PART #{channel}")
+  def on_part(nick, channel)
+    dispmess(nick, "PART #{channel}")
   end
 
   # QUIT受信時の処理
-  def on_quit(nick,mess)
-    dispmess(nick,"QUIT #{mess}")
+  def on_quit(nick, mess)
+    dispmess(nick, "QUIT #{mess}")
   end
 
   # KICK受信時の処理
-  def on_kick(nick,channel,mess,kicker)
-    dispmess(nick,"KICK #{channel} #{kicker} #{mess}")
+  def on_kick(nick, channel, mess, kicker)
+    dispmess(nick, "KICK #{channel} #{kicker} #{mess}")
   end
 
   # 自分のJOIN受信時の処理
   def on_myjoin(channel)
-    on_join(@irc_nick,channel)
+    on_join(@irc_nick, channel)
   end
 
   # 自分のPART受信時の処理
   def on_mypart(channel)
-    on_part(@irc_nick,channel)
+    on_part(@irc_nick, channel)
   end
 
   # 自分のQUIT受信時の処理
   def on_myquit(mess)
-    on_quit(@irc_nick,mess)
+    on_quit(@irc_nick, mess)
   end
 
   # 自分のKICK受信時の処理
-  def on_mykick(channel,mess,kicker)
-    on_kick(@irc_nick,channel,mess,kicker)
+  def on_mykick(channel, mess, kicker)
+    on_kick(@irc_nick, channel, mess, kicker)
   end
 
   # NICK受信時の処理
-  def on_nick(nick_old,nick_new)
-    dispmess(nick_old,"NICK #{nick_new}")
+  def on_nick(nick_old, nick_new)
+    dispmess(nick_old, "NICK #{nick_new}")
   end
 
   # 自分がINVITEされた時の処理
-  def on_myinvite(nick,channel)
-    dispmess(nick,"INVITE #{channel}")
+  def on_myinvite(nick, channel)
+    dispmess(nick, "INVITE #{channel}")
   end
 
   # エラーの時の処理

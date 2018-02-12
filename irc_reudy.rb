@@ -21,14 +21,14 @@ module Gimite
   opt.on('--db DB_TYPE') { |v| db = v }
 
   mecab = nil
-  opt.on('-m','--mecab') { mecab = true }
+  opt.on('-m', '--mecab') { mecab = true }
 
   opt.parse!(ARGV)
   directory = ARGV.first unless ARGV.empty?
 
   begin
     # IRC用ロイディを作成
-    client= BotIRCClient.new(Reudy.new(directory,{},db,mecab))
+    client= BotIRCClient.new(Reudy.new(directory, {}, db, mecab))
     client.processLoop
   rescue Interrupt
     nil # 割り込み発生。

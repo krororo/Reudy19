@@ -26,6 +26,6 @@ reudy.client = lingr
 post '/' do
   content_type :text
   data = JSON.parse(params[:json])
-  reudy.onOtherSpeak(data["events"][0]["message"]["nickname"],data["events"][0]["message"]["text"])
+  reudy.onOtherSpeak(data["events"][0]["message"]["nickname"], data["events"][0]["message"]["text"])
   return lingr.message
 end

@@ -42,7 +42,7 @@ module Gimite
           @prevTime = Time.now # onSilent用。
           @receiveQue = Queue.new # 受け取った通常発言のキュー。
           @controlQue = Queue.new # 受け取った制御発言のキュー。
-          connect(TCPSocket.open(@user.settings[:host], @user.settings[:port].to_i,@user.settings[:localhost]))
+          connect(TCPSocket.open(@user.settings[:host], @user.settings[:port].to_i, @user.settings[:localhost]))
           on_connect # ソケット接続時の処理。
           pingThread = Thread.new{ pingProcess }
           receiveThread = Thread.new{ receiveProcess }

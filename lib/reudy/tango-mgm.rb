@@ -34,8 +34,8 @@
 class WordExtractor
   # コンストラクタ
   # WordExtractor(単語候補リストを保持する長さ,単語追加時のコールバック)
-  def initialize(candlistlength=7,onaddword=nil)
-    @candList = Array.new(candlistlength,[]) # 単語候補のリスト
+  def initialize(candlistlength=7, onaddword=nil)
+    @candList = Array.new(candlistlength, []) # 単語候補のリスト
     @onAddWord = onaddword
   end
 
@@ -139,7 +139,7 @@ class WordExtractor
 
   # 単語リスト中の包含関係にあるものを削除して単語リストを最適化する
   def optimizeWordList(wordcand)
-    wordcand.combination(2) do |i,j|
+    wordcand.combination(2) do |i, j|
       if j.include?(i)
         i.clear
       elsif i.include?(j)
@@ -151,7 +151,7 @@ class WordExtractor
   end
 
   # 文中で使われている単語を取得
-  def extractWords(line,words=[])
+  def extractWords(line, words=[])
     wordcand = getCandList.select {|word| line.include?(word)} # 単語侯補が文章中に使われてたら単語にする
 
     # 新しく加わる単語同士に包含関係があったら短いほうを消去する

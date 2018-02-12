@@ -119,7 +119,7 @@ module Gimite
     def normalizeMsg(s)
       s = s.gsub(/[^ぁ-んー−？！\?!\.]+/, "")
       s.gsub!(/？/, "?")
-      s.gsub!(/！/,"!")
+      s.gsub!(/！/, "!")
       s.gsub!(/[ー−+]/, "ー")
       s
     end

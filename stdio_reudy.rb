@@ -69,13 +69,13 @@ module Gimite
   end
 
   mecab = nil
-  opt.on('-m','--mecab') do
+  opt.on('-m', '--mecab') do
     mecab = true
   end
 
   opt.parse!(ARGV)
 
   STDOUT.sync = true
-  client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) # 標準入出力用ロイディを作成
+  client = StdioClient.new(Reudy.new(directory, {}, db, mecab), nick) # 標準入出力用ロイディを作成
   client.loop
 end

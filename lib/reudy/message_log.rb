@@ -13,7 +13,7 @@ module Gimite
       @body = body
     end
 
-    attr_accessor :fromNick,:body
+    attr_accessor :fromNick, :body
   end
 
   # 発言ログ

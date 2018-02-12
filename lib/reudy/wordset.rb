@@ -11,7 +11,7 @@ module Gimite
       @mids = mids # この単語を含む発言の番号。
     end
 
-    attr_accessor :str,:author,:mids
+    attr_accessor :str, :author, :mids
 
     def ==(other)
       return @str == other.str

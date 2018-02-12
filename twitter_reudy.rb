@@ -35,7 +35,7 @@ module Gimite
         puts "Access This URL and press 'Allow' => #{request_token.authorize_url}"
         pin = HighLine.new.ask('Input key shown by twitter: ')
         access_token = request_token.get_access_token(:oauth_verifier => pin)
-        open(File.dirname(__FILE__)+"/token","w") do |f|
+        open(File.dirname(__FILE__)+"/token", "w") do |f|
           f.puts access_token.token
           f.puts access_token.secret
         end
@@ -83,14 +83,14 @@ module Gimite
   end
 
   mecab = nil
-  opt.on('-m','--mecab') do
+  opt.on('-m', '--mecab') do
     mecab = true
   end
 
   opt.parse!(ARGV)
 
   # twitter用ロイディを作成
-  client = TwitterClient.new(Reudy.new(directory,{},db,mecab))
+  client = TwitterClient.new(Reudy.new(directory, {}, db, mecab))
 
   loop do
     begin

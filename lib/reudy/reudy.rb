@@ -23,7 +23,7 @@ module Gimite
   class Reudy
     include Gimite
 
-    def initialize(dir, fixedSettings = {},db="pstore",mecab=nil)
+    def initialize(dir, fixedSettings = {}, db="pstore", mecab=nil)
       @attention = nil
 
       # 設定を読み込む。
@@ -52,7 +52,7 @@ module Gimite
       @wordSearcher = WordSearcher.new(@wordSet)
       @wtmlManager = WordToMessageListManager.new(@wordSet, @log, @wordSearcher)
       @extractor = WordExtractor.new(14, method(:onAddWord))
-      @simSearcher = SimilarSearcher.new(dir + '/db', @log,@db)
+      @simSearcher = SimilarSearcher.new(dir + '/db', @log, @db)
       @associator = WordAssociator.new(dir + '/assoc.txt')
       @attention = AttentionDecider.new
       @attention.setParameter(attentionParameters)
@@ -93,7 +93,7 @@ module Gimite
     end
 
     # チャットクライアントの指定
-    attr_accessor :client,:settings
+    attr_accessor :client, :settings
 
     # モードを変更
     def changeMode(mode)
@@ -329,7 +329,7 @@ module Gimite
         next if word.str.empty?
         if @wordSearcher.hasWord(base, word) && canAdoptWord(word)
           newParts = []
-          parts.each_with_index do |part,i|
+          parts.each_with_index do |part, i|
             if (i % 2).zero?
               word_regexp = /^(.*?)#{Regexp.escape(word.str)}(.*)$/
               while part =~ word_regexp

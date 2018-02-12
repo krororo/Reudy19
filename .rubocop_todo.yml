@@ -6,23 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 83
-# Cop supports --auto-correct.
-Layout/SpaceAfterComma:
-  Exclude:
-    - 'irc_reudy.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/message_log.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
-    - 'lib/reudy/wordset.rb'
-    - 'lingr_reudy.rb'
-    - 'stdio_reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
