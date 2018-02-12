@@ -58,16 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 15
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango_mgm.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'stdio_reudy.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/RedundantParentheses:

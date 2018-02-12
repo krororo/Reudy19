@@ -55,3 +55,6 @@ Style/GuardClause:
 Style/NumericPredicate:
   Exclude:
     - 'spec/**/*'
+
+Style/PerlBackrefs:
+  Enabled: false
