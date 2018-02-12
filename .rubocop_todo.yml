@@ -58,17 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc_client.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/reudy.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 Style/Encoding:

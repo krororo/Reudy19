@@ -33,6 +33,7 @@ module Gimite
       end
     end
 
-    def close; end
+    def close
+    end
   end
 end
