@@ -21,7 +21,7 @@ module Gimite
   opt.on('--db DB_TYPE') { |v| db = v }
 
   mecab = nil
-  opt.on('-m','--mecab') { |v| mecab = true }
+  opt.on('-m','--mecab') { mecab = true }
 
   opt.parse!(ARGV)
   directory = ARGV.first unless ARGV.empty?

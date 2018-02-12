@@ -71,7 +71,7 @@ opt.on('-n nickname') do |v|
 end
 
 mecab = nil
-opt.on('-m','--mecab') do |v|
+opt.on('-m','--mecab') do
   mecab = true
 end
 

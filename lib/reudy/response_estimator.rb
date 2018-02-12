@@ -14,7 +14,7 @@ module Gimite
   class ResponseEstimator
     include Gimite
 
-    def initialize(log, wordSearcher, msgFilter = proc{ |n| true }, wordFilter = proc{ |w| true })
+    def initialize(log, wordSearcher, msgFilter = proc{ true }, wordFilter = proc{ true })
       @cacheLimit = 40
       @log = log
       @wordSearcher = wordSearcher
