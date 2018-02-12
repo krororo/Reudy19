@@ -46,7 +46,7 @@ class WordExtractor
     candList.uniq!
     candList.flatten!
     candList.compact!
-    return candList
+    candList
   end
 
   # 単語として適切かどうか判定する
@@ -93,7 +93,7 @@ class WordExtractor
             || (prestr =~ /[＞＜]$/ && poststr.empty?)
       word = wordFilter1(word)
     end
-    return wordFilter2(word)
+    wordFilter2(word)
   end
 
   # 文字列を単語として追加べきかを判定する
@@ -133,7 +133,7 @@ class WordExtractor
       end
     end
 
-    return result
+    result
   end
 
   # 単語リスト中の包含関係にあるものを削除して単語リストを最適化する
@@ -146,7 +146,7 @@ class WordExtractor
       end
     end
     wordcand.reject!(&:empty?)
-    return wordcand
+    wordcand
   end
 
   # 文中で使われている単語を取得
@@ -165,7 +165,7 @@ class WordExtractor
 
     words.each { |w| @onAddWord.call(w) } if @onAddWord
 
-    return words
+    words
   end
 
   # 単語侯補のリストを更新する
@@ -178,7 +178,7 @@ class WordExtractor
   def processLine(line)
     words = extractWords(line)
     renewCandList(line)
-    return words
+    words
   end
 
   # デバッグ出力

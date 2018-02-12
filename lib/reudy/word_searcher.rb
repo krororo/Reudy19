@@ -19,7 +19,7 @@ module Gimite
       return false unless sentence.include?(word.str)
       return false unless sentence =~ /(.|^)#{Regexp.escape(word.str)}(.|$)/
       return false if "#{$1}#{word.str[0]}" =~ KANA_AN || "#{word.str[-1]}#{$2}" =~ KANA_AN # カタカナ列や英文字列を途中で切るような単語は不可
-      return true
+      true
     end
 
     # 文中から既知の単語を探す

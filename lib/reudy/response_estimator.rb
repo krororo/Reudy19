@@ -57,7 +57,7 @@ module Gimite
       @cache.clear if @cache.size >= @cacheLimit
       @cache[mid] = [resMid, prob]
 
-      return [resMid, prob]
+      [resMid, prob]
     end
   end
 

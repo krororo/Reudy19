@@ -51,13 +51,13 @@ module Gimite
 
     # チャットオブジェクト用の設定
     def settings(key)
-      return @settings[key]
+      @settings[key]
     end
 
     # Nickを相手のNickに変える
     def replaceNick(sentence, fromNick)
       nickReg = @myNicks.map { |x| Regexp.escape(x) }.join("|")
-      return sentence.gsub(Regexp.new(nickReg), fromNick)
+      sentence.gsub(Regexp.new(nickReg), fromNick)
     end
 
     # 「最近使われた単語」を追加
@@ -81,7 +81,7 @@ module Gimite
       return nil unless outputWordStr
       addRecentWordStr(inputWordStr)
       addRecentWordStr(outputWordStr)
-      return inputWordStr + "は" + outputWordStr + "です。"
+      inputWordStr + "は" + outputWordStr + "です。"
     end
 
     # 指定の人の中の人を答える
@@ -94,7 +94,7 @@ module Gimite
         ct = nicks.select { |x| x == nick0 }.size
         str += format("%s(%d%%) ", nick0, ct * 100 / nicks.size)
       end
-      return nick + "の中の人は " + str + "です。"
+      nick + "の中の人は " + str + "です。"
     end
 
     # 学習する
@@ -105,7 +105,7 @@ module Gimite
 
     # 類似発言検索用フィルタ
     def similarFilter(_lineN)
-      return true
+      true
     end
 
     # 類似発言データを蓄積する

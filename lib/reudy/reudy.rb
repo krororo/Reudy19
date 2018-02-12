@@ -101,7 +101,7 @@ module Gimite
       @mode = mode
       @attention.setParameter(attentionParameters) if @attention
       updateStatus
-      return true
+      true
     end
 
     def updateStatus
@@ -112,7 +112,7 @@ module Gimite
     def attentionParameters
       case @mode
       when 0 # 沈黙モード。
-        return { \
+        { \
           min: 0.001, \
           max: 0.001, \
           default: 0.001, \
@@ -121,7 +121,7 @@ module Gimite
           ignored: 0.0    \
         }
       when 1 # 寡黙モード。
-        return { \
+        { \
           min: 0.1, \
           max: 0.3, \
           default: 0.1, \
@@ -130,7 +130,7 @@ module Gimite
           ignored: 0.002 \
         }
       when 2 # 通常モード。
-        return { \
+        { \
           min: 0.5, \
           max: 1.1, \
           default: 0.5, \
@@ -139,7 +139,7 @@ module Gimite
           ignored: 0.002 \
         }
       when 3 # 饒舌モード。
-        return { \
+        { \
           min: 0.8, \
           max: 1.1, \
           default: 0.8, \
@@ -148,7 +148,7 @@ module Gimite
           ignored: 0.01  \
         }
       when 4 # 必ず応答するモード。
-        return { \
+        { \
           min: 1.1, \
           max: 1.1, \
           default: 1.1, \
@@ -188,7 +188,7 @@ module Gimite
       return false if nick == "!" # 自分自身の発言。
       return false if nick !~ @targetNickReg || nick =~ @forbiddenNickReg # この発言者の発言は使えない。
       return false if @recentBaseMsgNs.include?(msgN) # 最近そのベース発言を使った。
-      return true
+      true
     end
 
     # mid番目の発言への返事（と思われる発言）について、[発言番号,返事らしさ]を返す。
@@ -286,7 +286,7 @@ module Gimite
         end
       end
       dprint("共通単語発言", @log[maxMid].body) if maxMid
-      return [maxMid, maxResMid]
+      [maxMid, maxResMid]
     end
 
     # 類似発言と、その返事の発言番号を返す。
@@ -308,7 +308,7 @@ module Gimite
         end
       end
       dprint("類似発言", @log[maxMid].body, maxProb) if maxMid
-      return [maxMid, maxResMid]
+      [maxMid, maxResMid]
     end
 
     # msgN番の発言を使ったベース発言の文字列。
@@ -369,7 +369,7 @@ module Gimite
       when /^[^()]*\)/
         output.replace("(#{output}")
       end
-      return output
+      output
     end
 
     # 自由発言の選び方を記録する。

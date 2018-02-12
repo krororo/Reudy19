@@ -26,12 +26,12 @@ class WordExtractor
       end
     end
 
-    return words
+    words
   end
 
   # 単語取得・単語候補リスト更新を1行分処理する
   def processLine(line)
     words = extractWords(line)
-    return words
+    words
   end
 end

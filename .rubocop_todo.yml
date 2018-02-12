@@ -58,21 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 34
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/gdbm.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango_mecab.rb'
-    - 'lib/reudy/tango_mgm.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'lib/reudy/wordset.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.

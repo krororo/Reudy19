@@ -193,7 +193,7 @@ module Gimite
     # 再接続の前に呼び出される。
     # falseを返すと、再接続せずに終了する。
     def queryReconnect
-      return true
+      true
     end
 
     # エラー

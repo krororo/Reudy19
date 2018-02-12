@@ -15,23 +15,23 @@ module Gimite
     attr_accessor :str, :author, :mids
 
     def ==(other)
-      return @str == other.str
+      @str == other.str
     end
 
     def eql?(other)
-      return @str == other.str
+      @str == other.str
     end
 
     def hash
-      return @str.hash
+      @str.hash
     end
 
     def <=>(other)
-      return @str <=> other.str
+      @str <=> other.str
     end
 
     def inspect
-      return "<Word: \"#{str}\">"
+      "<Word: \"#{str}\">"
     end
   end
 
@@ -63,7 +63,7 @@ module Gimite
         @words.push(word)
       end
       @added_words.push(word)
-      return word
+      word
     end
 
     # ファイルに保存

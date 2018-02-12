@@ -11,7 +11,7 @@ module Gimite
 
     def [](key)
       str = @gdbm[key]
-      return str && Marshal.load(str).freeze
+      str && Marshal.load(str).freeze
       # オブジェクトの中身を変更されてもDBに反映できないので、freeze()しておく
     end
 
