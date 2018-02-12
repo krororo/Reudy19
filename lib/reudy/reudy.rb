@@ -111,51 +111,51 @@ module Gimite
     #注目判定器に与えるパラメータ。
     def attentionParameters
       case @mode
-        when 0 #沈黙モード。
-          return { \
-            :min     => 0.001, \
-            :max     => 0.001, \
-            :default => 0.001, \
-            :called  => 0.001, \
-            :self    => 0.0,   \
-            :ignored => 0.0    \
-          }
-        when 1 #寡黙モード。
-          return { \
-            :min     => 0.1, \
-            :max     => 0.3, \
-            :default => 0.1, \
-            :called  => 1.1, \
-            :self    => 0.005, \
-            :ignored => 0.002 \
-          }
-        when 2 #通常モード。
-          return { \
-            :min     => 0.5, \
-            :max     => 1.1, \
-            :default => 0.5, \
-            :called  => 1.1, \
-            :self    => 0.3, \
-            :ignored => 0.002 \
-          }
-        when 3 #饒舌モード。
-          return { \
-            :min     => 0.8, \
-            :max     => 1.1, \
-            :default => 0.8, \
-            :called  => 1.1, \
-            :self    => 0.8, \
-            :ignored => 0.01  \
-          }
-        when 4 #必ず応答するモード。
-          return { \
-            :min     => 1.1, \
-            :max     => 1.1, \
-            :default => 1.1, \
-            :called  => 1.1, \
-            :self    => 0.8, \
-            :ignored => 0.003  \
-          }
+      when 0 #沈黙モード。
+        return { \
+          :min     => 0.001, \
+          :max     => 0.001, \
+          :default => 0.001, \
+          :called  => 0.001, \
+          :self    => 0.0,   \
+          :ignored => 0.0    \
+        }
+      when 1 #寡黙モード。
+        return { \
+          :min     => 0.1, \
+          :max     => 0.3, \
+          :default => 0.1, \
+          :called  => 1.1, \
+          :self    => 0.005, \
+          :ignored => 0.002 \
+        }
+      when 2 #通常モード。
+        return { \
+          :min     => 0.5, \
+          :max     => 1.1, \
+          :default => 0.5, \
+          :called  => 1.1, \
+          :self    => 0.3, \
+          :ignored => 0.002 \
+        }
+      when 3 #饒舌モード。
+        return { \
+          :min     => 0.8, \
+          :max     => 1.1, \
+          :default => 0.8, \
+          :called  => 1.1, \
+          :self    => 0.8, \
+          :ignored => 0.01  \
+        }
+      when 4 #必ず応答するモード。
+        return { \
+          :min     => 1.1, \
+          :max     => 1.1, \
+          :default => 1.1, \
+          :called  => 1.1, \
+          :self    => 0.8, \
+          :ignored => 0.003  \
+        }
       end
     end
 
