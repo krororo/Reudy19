@@ -6,7 +6,7 @@ module Gimite
   # 値が文字列以外でもOKなGDBM（手抜き）
   class DB
     def initialize(file_name)
-      @gdbm = GDBM.new(file_name, 0666, GDBM::FAST)
+      @gdbm = GDBM.new(file_name, 0o666, GDBM::FAST)
     end
 
     def [](key)
