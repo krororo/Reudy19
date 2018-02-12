@@ -58,29 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 123
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'irc_reudy.rb'
-    - 'lib/reudy/attention_decider.rb'
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/irc_client.rb'
-    - 'lib/reudy/message_log.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/response_estimator.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/similar_searcher.rb'
-    - 'lib/reudy/tango_mgm.rb'
-    - 'lib/reudy/thought_view.rb'
-    - 'lib/reudy/word_searcher.rb'
-    - 'lib/reudy/wordset.rb'
-    - 'lingr_reudy.rb'
-    - 'stdio_reudy.rb'
-    - 'twitter_reudy.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
