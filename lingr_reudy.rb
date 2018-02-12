@@ -16,9 +16,7 @@ class Lingr
   attr_accessor :message
 end
 
-include Gimite
-
-reudy = Reudy.new("public")
+reudy = Gimite::Reudy.new("public")
 lingr = Lingr.new
 reudy.client = lingr
 
