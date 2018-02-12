@@ -1,5 +1,8 @@
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  TargetRubyVersion: 2.3
+
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
@@ -49,12 +52,14 @@ Style/EmptyMethod:
 Style/FormatStringToken:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/GuardClause:
   MinBodyLength: 5
 
 Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
+  Enabled: false
 
 Style/PerlBackrefs:
   Enabled: false

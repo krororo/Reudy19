@@ -50,10 +50,8 @@ module Gimite
 
     # contの各要素について、ランダムな順序でblockを呼び出す。
     def randomEach(cont)
-      if cont
-        cont.shuffle.each do |c|
-          yield(c)
-        end
+      cont&.shuffle&.each do |c|
+        yield(c)
       end
     end
 

@@ -2,7 +2,6 @@
 # Modified by Glass_saga <glass.saga@gmail.com>
 
 require 'socket'
-require 'thread'
 require_relative 'irc-client'
 require_relative 'reudy_common'
 
@@ -59,9 +58,9 @@ module Gimite
         rescue SystemCallError, SocketError, IOError => ex
           puts "切断されました。#{ex.message}"
         end
-        pingThread.exit if pingThread
+        pingThread&.exit
         @receiveQue.push(nil)
-        receiveThread.join if receiveThread
+        receiveThread&.join
         break if @isExitting || @user.settings[:auto_reconnect]
         sleep(10)
         break unless queryReconnect
