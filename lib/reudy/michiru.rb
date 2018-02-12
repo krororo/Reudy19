@@ -87,7 +87,7 @@ module Gimite
     # 指定の人の中の人を答える
     def innerPeople(nick)
       nicks = @similarNicksMap[nick]
-      return nick + "の中の人はいません。" if !nicks || nicks.size == 0
+      return nick + "の中の人はいません。" if !nicks || nicks.empty?
       nicks0 = nicks.uniq.sort.reverse
       str = ""
       nicks0.each do |nick0|

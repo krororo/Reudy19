@@ -51,3 +51,7 @@ Style/FormatStringToken:
 
 Style/GuardClause:
   MinBodyLength: 5
+
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*'

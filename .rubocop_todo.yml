@@ -59,15 +59,6 @@ Security/YAMLLoad:
     - 'lib/reudy/wordset.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/reudy/michiru.rb'
-
-# Offense count: 1
 Style/OptionalArguments:
   Exclude:
     - 'lib/reudy/irc_client.rb'
