@@ -31,6 +31,6 @@ module Gimite
     client= BotIRCClient.new(Reudy.new(directory,{},db,mecab))
     client.processLoop
   rescue Interrupt
-    #割り込み発生。
+    nil #割り込み発生。
   end
 end

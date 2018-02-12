@@ -201,11 +201,6 @@ Layout/TrailingBlankLines:
     - 'lib/reudy/response_estimator.rb'
 
 # Offense count: 1
-Lint/HandleExceptions:
-  Exclude:
-    - 'irc_reudy.rb'
-
-# Offense count: 1
 Lint/ShadowingOuterLocalVariable:
   Exclude:
     - 'lib/reudy/tango-mgm.rb'
