@@ -37,7 +37,8 @@ module Gimite
 
   # 単語集
   class WordSet
-    include Gimite, Enumerable
+    include Enumerable
+    include Gimite
 
     def initialize(filename)
       @filename = filename
