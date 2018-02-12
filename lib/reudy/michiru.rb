@@ -10,7 +10,6 @@ require $REUDY_DIR+'/similar_searcher5'
 require $REUDY_DIR+'/reudy_common'
 
 module Gimite
-
 #人工無能ミチル
 class Michiru
   include(Gimite)
@@ -179,5 +178,4 @@ class Michiru
     end
   end
 end
-
 end #module Gimite

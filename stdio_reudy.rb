@@ -14,7 +14,6 @@ require $REUDY_DIR+'/reudy_common'
 trap(:INT){ exit }
 
 module Gimite
-
 class StdioClient
   include(Gimite)
 
@@ -79,5 +78,4 @@ opt.parse!(ARGV)
 STDOUT.sync = true
 client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) #標準入出力用ロイディを作成
 client.loop
-
 end
