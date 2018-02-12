@@ -58,14 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 4
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/similar_searcher.rb'
-
 # Offense count: 59
 # Configuration parameters: AllowedVariables.
 Style/GlobalVars:

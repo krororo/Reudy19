@@ -45,3 +45,6 @@ Style/Documentation:
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+Style/FormatStringToken:
+  Enabled: false
