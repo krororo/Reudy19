@@ -576,7 +576,7 @@ module Gimite
       if input
         @log.addMsg("!input", input)
         @log.addMsg("!teacher", output)
-        @client.outputInfo("反応「#{input}→→#{output}」を学習した。" ) if @client
+        @client.outputInfo("反応「#{input}→→#{output}」を学習した。") if @client
       end
     end
 
