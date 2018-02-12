@@ -50,7 +50,7 @@ module Gimite
         end
       end
       prob = resMid ? numTargets : 0 # 同じ単語を含む方が、返事らしさが高い。
-      resMid = candMids.first unless resMid
+      resMid ||= candMids.first
       prob += numTargets + 1 - (resMid - mid) # 近い発言の方が、返事らしさが高い。
 
       # キャッシュしておく。

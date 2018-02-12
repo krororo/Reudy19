@@ -106,7 +106,7 @@ class IRCC
     prefix, param = s.split(' ', 2) if s[0..0] == ':'
     nick, prefix = prefix.split('!', 2)
     nick.slice!(0)
-    param = s unless param
+    param ||= s
 
     param, param2 = param.split(/ :/, 2)
     param = param.split(' ')

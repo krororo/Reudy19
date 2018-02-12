@@ -114,7 +114,7 @@ module Gimite
       return unless data
       lineN = data[0]
       nicks = @similarNicksMap[fromNick]
-      nicks = [] unless nicks
+      nicks ||= []
       nicks.push(@log[lineN].fromNick)
       dprint("類似発言", @log[lineN].fromNick, @log[lineN].body)
       nicks.shift if nicks.size > 10
