@@ -59,11 +59,6 @@ Security/YAMLLoad:
     - 'lib/reudy/wordset.rb'
 
 # Offense count: 2
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/reudy/reudy.rb'
-
-# Offense count: 2
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
   Exclude:

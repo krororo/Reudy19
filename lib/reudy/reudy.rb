@@ -392,20 +392,16 @@ module Gimite
           output = getBaseMsgStr(baseMsgN) if baseMsgN
           recordThought(2, simMsgN, baseMsgN, @newInputWords, output) if output
         end
-      else
-        if baseMsgN
-          output = getBaseMsgStr(baseMsgN)
-          unless @wordSearcher.searchWords(output).empty?
-            output = mustRespond ? replaceWords(output, @inputWords, true) : nil
-          end
-          recordThought(3, simMsgN, baseMsgN, @inputWords, output) if output
-        else
-          if mustRespond && !@inputWords.empty?
-            simMsgN, baseMsgN = getBaseMsgUsingKeyword(@inputWords) # 最新でない入力語も使ってキーワード検索。
-            output = getBaseMsgStr(baseMsgN) if baseMsgN
-            recordThought(4, simMsgN, baseMsgN, @inputWords, output) if output
-          end
+      elsif baseMsgN
+        output = getBaseMsgStr(baseMsgN)
+        unless @wordSearcher.searchWords(output).empty?
+          output = mustRespond ? replaceWords(output, @inputWords, true) : nil
         end
+        recordThought(3, simMsgN, baseMsgN, @inputWords, output) if output
+      elsif mustRespond && !@inputWords.empty?
+        simMsgN, baseMsgN = getBaseMsgUsingKeyword(@inputWords) # 最新でない入力語も使ってキーワード検索。
+        output = getBaseMsgStr(baseMsgN) if baseMsgN
+        recordThought(4, simMsgN, baseMsgN, @inputWords, output) if output
       end
       if mustRespond && !output
         log_size = @log.size
