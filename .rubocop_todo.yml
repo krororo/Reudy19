@@ -200,11 +200,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'lib/reudy/response_estimator.rb'
 
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'lib/reudy/reudy.rb'
-
 # Offense count: 23
 Metrics/AbcSize:
   Max: 96

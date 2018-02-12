@@ -549,9 +549,8 @@ module Gimite
 
     #他人が発言した。
     def onOtherSpeak(from_nick, input, should_ignore = false)
-      output = nil #発言。
       called = @myNicks.any?{|n| input.include?(n) }
-      output = called ? processCommand(input) : nil
+      output = called ? processCommand(input) : nil #発言。
       if output
         @client.speak(output) if output != :exit && !output.empty?
       else #定型コマンドではない。
