@@ -19,7 +19,6 @@ require $REUDY_DIR+'/reudy_common'
 
 module Gimite
   class TwitterClient
-
     include(Gimite)
 
     def initialize(user)

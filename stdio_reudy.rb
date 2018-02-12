@@ -16,7 +16,6 @@ trap(:INT){ exit }
 module Gimite
 
 class StdioClient
-
   include(Gimite)
 
   def initialize(user, yourNick)
