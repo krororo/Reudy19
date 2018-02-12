@@ -35,7 +35,7 @@
 #----------------------------------------------------------------------------
 
 class IRCC
-  def initialize(sock, userinfo, internal_encoding, disp = STDOUT, irc_encoding)
+  def initialize(sock, userinfo, internal_encoding, disp, irc_encoding)
     if sock
       @sock = sock
       @sock.set_encoding(@irc_encoding, @internal_encoding) unless @irc_encoding == @internal_encoding

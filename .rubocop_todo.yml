@@ -58,11 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 1
-Style/OptionalArguments:
-  Exclude:
-    - 'lib/reudy/irc_client.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/OrAssignment:
