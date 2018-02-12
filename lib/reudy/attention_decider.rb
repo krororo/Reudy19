@@ -69,7 +69,7 @@ module Gimite
 
     # 現在の状態を表す文字列。
     def to_s
-      "デフォルト発言率:%.2f, 最近の発言者: #{@recentSpeakers}" % @prob
+      format("デフォルト発言率:%.2f, 最近の発言者: #{@recentSpeakers}", @prob)
     end
 
     private
