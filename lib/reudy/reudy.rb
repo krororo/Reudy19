@@ -186,7 +186,7 @@ module Gimite
       return false if !@settings[:teacher_mode] && size > @recentUnusedCt && msgN >= size - @recentUnusedCt # 発言が新しすぎる。（中の人モードでは無効）
       nick = msg.fromNick
       return false if nick == "!" # 自分自身の発言。
-      return false if !(nick =~ @targetNickReg) || nick =~ @forbiddenNickReg # この発言者の発言は使えない。
+      return false if nick !~ @targetNickReg || nick =~ @forbiddenNickReg # この発言者の発言は使えない。
       return false if @recentBaseMsgNs.include?(msgN) # 最近そのベース発言を使った。
       return true
     end
