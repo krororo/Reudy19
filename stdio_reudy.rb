@@ -14,68 +14,68 @@ require $REUDY_DIR+'/reudy_common'
 trap(:INT){ exit }
 
 module Gimite
-class StdioClient
-  include(Gimite)
+  class StdioClient
+    include(Gimite)
 
-  def initialize(user, yourNick)
-    @user = user
-    @user.client = self
-    @yourNick = yourNick
-    greeting = @user.settings["joining_message"]
-    puts greeting if greeting
-  end
+    def initialize(user, yourNick)
+      @user = user
+      @user.client = self
+      @yourNick = yourNick
+      greeting = @user.settings["joining_message"]
+      puts greeting if greeting
+    end
 
-  def loop
-    STDIN.each_line do |line|
-      line = line.chomp
-      if line.empty?
-        @user.onSilent
-      elsif @yourNick
-        @user.onOtherSpeak(@yourNick, line)
-      elsif line =~ /^(.+?) (.*)$/
-        @user.onOtherSpeak($1, $2)
-      else
-        $stderr.print("Error\n")
+    def loop
+      STDIN.each_line do |line|
+        line = line.chomp
+        if line.empty?
+          @user.onSilent
+        elsif @yourNick
+          @user.onOtherSpeak(@yourNick, line)
+        elsif line =~ /^(.+?) (.*)$/
+          @user.onOtherSpeak($1, $2)
+        else
+          $stderr.print("Error\n")
+        end
       end
+    end
+
+    #補助情報を出力
+    def outputInfo(s)
+      puts "(#{s})"
+    end
+
+    #発言する
+    def speak(s)
+      puts s
     end
   end
 
-  #補助情報を出力
-  def outputInfo(s)
-    puts "(#{s})"
+  opt = OptionParser.new
+
+  directory = 'public'
+  opt.on('-d DIRECTORY') do |v|
+    directory = v
   end
 
-  #発言する
-  def speak(s)
-    puts s
+  db = 'pstore'
+  opt.on('--db DB_TYPE') do |v|
+    db = v
   end
-end
 
-opt = OptionParser.new
+  nick = 'test'
+  opt.on('-n nickname') do |v|
+    nick = v
+  end
 
-directory = 'public'
-opt.on('-d DIRECTORY') do |v|
-  directory = v
-end
+  mecab = nil
+  opt.on('-m','--mecab') do
+    mecab = true
+  end
 
-db = 'pstore'
-opt.on('--db DB_TYPE') do |v|
-  db = v
-end
+  opt.parse!(ARGV)
 
-nick = 'test'
-opt.on('-n nickname') do |v|
-  nick = v
-end
-
-mecab = nil
-opt.on('-m','--mecab') do
-  mecab = true
-end
-
-opt.parse!(ARGV)
-
-STDOUT.sync = true
-client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) #標準入出力用ロイディを作成
-client.loop
+  STDOUT.sync = true
+  client = StdioClient.new(Reudy.new(directory,{},db,mecab),nick) #標準入出力用ロイディを作成
+  client.loop
 end
