@@ -11,7 +11,7 @@ module Gimite
     end
 
     def loadFromFile
-      if File.exists?(@file_name)
+      if File.exist?(@file_name)
         File.open(@file_name) do |file|
           file.each_line do |line|
             line.chomp!

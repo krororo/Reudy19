@@ -201,12 +201,6 @@ Layout/TrailingBlankLines:
     - 'lib/reudy/response_estimator.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Lint/DeprecatedClassMethods:
-  Exclude:
-    - 'lib/reudy/word_associator.rb'
-
-# Offense count: 1
 Lint/HandleExceptions:
   Exclude:
     - 'irc_reudy.rb'
