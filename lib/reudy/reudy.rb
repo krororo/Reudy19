@@ -23,7 +23,7 @@ module Gimite
   class Reudy
     include Gimite
 
-    def initialize(dir, fixedSettings = {}, db="pstore", mecab=nil)
+    def initialize(dir, fixedSettings = {}, db = "pstore", mecab = nil)
       @attention = nil
 
       # 設定を読み込む。

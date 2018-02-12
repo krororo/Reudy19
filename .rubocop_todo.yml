@@ -6,18 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, no_space
-Layout/SpaceAroundEqualsInParameterDefault:
-  Exclude:
-    - 'lib/reudy/irc-client.rb'
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/tango-mgm.rb'
-
 # Offense count: 93
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.

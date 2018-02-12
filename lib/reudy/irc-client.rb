@@ -35,7 +35,7 @@
 #----------------------------------------------------------------------------
 
 class IRCC
-  def initialize(sock, userinfo, internal_encoding, disp=STDOUT, irc_encoding)
+  def initialize(sock, userinfo, internal_encoding, disp = STDOUT, irc_encoding)
     if sock
       @sock = sock
       @sock.set_encoding(@irc_encoding, @internal_encoding) unless @irc_encoding == @internal_encoding
@@ -70,14 +70,14 @@ class IRCC
   end
 
   # メッセージの送信(通常のPRIVMSGで)
-  def sendpriv(mess="")
+  def sendpriv(mess = "")
     dispmess(">#{@irc_nick}<", mess)
     buff = "PRIVMSG #{@irc_channel} :#{mess}"
     sendmess(buff + "\r\n")
   end
 
   # メッセージの送信(NOTICEで)
-  def sendnotice(mess="")
+  def sendnotice(mess = "")
     dispmess(">#{@irc_nick}<", mess)
     buff = "NOTICE #{@irc_channel} :#{mess}"
     sendmess(buff + "\r\n")

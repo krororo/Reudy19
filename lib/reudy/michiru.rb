@@ -14,7 +14,7 @@ module Gimite
   class Michiru
     include(Gimite)
 
-    def initialize(dir, fixedSettings= {})
+    def initialize(dir, fixedSettings = {})
       @recentWordsCt = 40 # 最近使った単語を何個記憶するか
       @fixedSettings = fixedSettings
       @settingPath = dir + "/setting.txt"

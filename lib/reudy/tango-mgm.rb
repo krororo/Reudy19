@@ -34,7 +34,7 @@
 class WordExtractor
   # コンストラクタ
   # WordExtractor(単語候補リストを保持する長さ,単語追加時のコールバック)
-  def initialize(candlistlength=7, onaddword=nil)
+  def initialize(candlistlength = 7, onaddword = nil)
     @candList = Array.new(candlistlength, []) # 単語候補のリスト
     @onAddWord = onaddword
   end
@@ -87,7 +87,7 @@ class WordExtractor
   # 単語として適切かどうか判定する
   # 前後の文字列も参考にする
   # 不適だとnilを返す
-  def checkWordCand(word, prestr="", poststr="")
+  def checkWordCand(word, prestr = "", poststr = "")
     unless  ((prestr.empty? || prestr =~ /[、。．，！？（）・…]$/) && poststr =~ /^[はが]([^ぁ-ん]|$)/ \
             &&((word + poststr[0..0]) !~ /(?:では|だが|には|のが)$/) && (word =~ /^[ぁ-んー]+$/ || word =~ /^[^ぁ-ん]/) \
             && word.size >= 3) \
@@ -151,7 +151,7 @@ class WordExtractor
   end
 
   # 文中で使われている単語を取得
-  def extractWords(line, words=[])
+  def extractWords(line, words = [])
     wordcand = getCandList.select {|word| line.include?(word)} # 単語侯補が文章中に使われてたら単語にする
 
     # 新しく加わる単語同士に包含関係があったら短いほうを消去する
