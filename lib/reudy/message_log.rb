@@ -49,7 +49,7 @@ module Gimite
     # 発言を追加
     def addMsg(from_nick, body, _to_outer = true)
       File.open(@innerFileName, "a") do |f|
-        YAML.dump({:fromNick => from_nick, :body => body}, f)
+        YAML.dump({fromNick: from_nick, body: body}, f)
       end
       @size += 1
       @observers.each(&:onAddMsg)

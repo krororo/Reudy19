@@ -24,13 +24,13 @@ module Gimite
 
       key = user.settings[:twitter][:key]
       secret = user.settings[:twitter][:secret]
-      cons = OAuth::Consumer.new(key, secret, :site => "http://api.twitter.com")
+      cons = OAuth::Consumer.new(key, secret, site: "http://api.twitter.com")
 
       unless File.exist?(File.dirname(__FILE__) + "/token")
         request_token = cons.get_request_token
         puts "Access This URL and press 'Allow' => #{request_token.authorize_url}"
         pin = HighLine.new.ask('Input key shown by twitter: ')
-        access_token = request_token.get_access_token(:oauth_verifier => pin)
+        access_token = request_token.get_access_token(oauth_verifier: pin)
         open(File.dirname(__FILE__) + "/token", "w") do |f|
           f.puts access_token.token
           f.puts access_token.secret
