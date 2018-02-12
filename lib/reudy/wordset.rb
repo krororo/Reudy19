@@ -4,7 +4,8 @@
 require $REUDY_DIR + '/reudy_common'
 
 module Gimite
-  class Word # 単語クラス
+  # 単語クラス
+  class Word
     def initialize(str, author = "", mids = [])
       @str = str # 単語の文字列。
       @author = author # 単語を教えた人。

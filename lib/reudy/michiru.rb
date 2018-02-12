@@ -178,4 +178,4 @@ module Gimite
       end
     end
   end
-end # module Gimite
+end

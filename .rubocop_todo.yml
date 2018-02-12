@@ -58,12 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 2
-Style/CommentedKeyword:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/wordset.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
