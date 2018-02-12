@@ -4,8 +4,8 @@
 
 $REUDY_DIR = "./lib/reudy" unless defined?($REUDY_DIR)
 
-Interval = 60 # タイムラインを取得する間隔
-Abort_on_API_limit = false # API制限に引っかかった時にabortするかどうか
+INTERVAL = 60 # タイムラインを取得する間隔
+ABORT_ON_API_LIMIT = false # API制限に引っかかった時にabortするかどうか
 
 trap(:INT) { exit }
 
@@ -62,7 +62,7 @@ module Gimite
     # 発言する
     def speak(s)
       time = Time.now
-      if time - @last_tweet > Interval
+      if time - @last_tweet > INTERVAL
         @r.update(s)
         puts "tweeted: #{s}"
         @last_tweet = time
@@ -100,13 +100,13 @@ module Gimite
         since_id = status.id
         client.onTweet(status)
       end
-      sleep(Interval)
+      sleep(INTERVAL)
     rescue => ex
       case ex.message
       when "Could not authenticate with OAuth."
         abort ex.message
       when /Rate limit exceeded./
-        if Abort_on_API_limit
+        if ABORT_ON_API_LIMIT
           abort ex.message
         else
           reset_time = Time.parse(r.limit_status[:reset_time])
