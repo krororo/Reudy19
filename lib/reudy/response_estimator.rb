@@ -78,4 +78,3 @@ module Gimite
     end
   end
 end
-
