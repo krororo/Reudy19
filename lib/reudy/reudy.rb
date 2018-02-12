@@ -374,7 +374,7 @@ module Gimite
 
     # 自由発言の選び方を記録する。
     def recordThought(pattern, simMid, resMid, words, output)
-      @thoughtFile.puts [@log.size - 1, pattern, simMid, resMid, words.map { |w| w.str }.join(","), output].join("\t")
+      @thoughtFile.puts [@log.size - 1, pattern, simMid, resMid, words.map(&:str).join(","), output].join("\t")
     end
 
     # 自由に発言する。
