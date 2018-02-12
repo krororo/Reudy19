@@ -478,7 +478,7 @@ module Gimite
       end
       if input =~ /覚えさせた|教わった/ && input.include?("誰") && input =~ /「(.+?)」/
         wordStr = $1
-        if wordIdx = @wordSet.words.index(Word.new(wordStr))
+        if (wordIdx = @wordSet.words.index(Word.new(wordStr)))
           author = @wordSet.words[wordIdx].author
           if !author.empty?
             return "#{author}さんに。＞#{wordStr}"

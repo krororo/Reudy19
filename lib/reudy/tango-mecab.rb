@@ -17,7 +17,7 @@ class WordExtractor
   def extractWords(line,words=[])
     n = @m.parseToNode(line)
 
-    while n = n.next do
+    while (n = n.next)
       words << n.surface.force_encoding(Encoding::UTF_8) if !n.surface.empty? && POS_ID.include?(n.posid)
     end
 

@@ -200,15 +200,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'lib/reudy/response_estimator.rb'
 
-# Offense count: 5
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'lib/reudy/bot_irc_client.rb'
-    - 'lib/reudy/reudy.rb'
-    - 'lib/reudy/tango-mecab.rb'
-    - 'lib/reudy/word_associator.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Lint/DeprecatedClassMethods:

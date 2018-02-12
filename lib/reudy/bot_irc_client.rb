@@ -46,7 +46,7 @@ module Gimite
           pingThread = Thread.new{ pingProcess }
           receiveThread = Thread.new{ receiveProcess }
           #受信ループ。
-          while line = sock.gets
+          while (line = sock.gets)
             on_recv(line)
             time = Time.now
             if time - @prevTime >= SILENT_SECOND
@@ -212,7 +212,7 @@ module Gimite
 
     #受信してキューにたまっている発言を処理する。
     def receiveProcess
-      while args = popMessage
+      while (args = popMessage)
         while args
           sleep(@user.settings[:wait_before_speak].to_f * (0.5 + rand)) if @user.settings[:wait_before_speak]
           if @receiveQue.empty?

@@ -24,7 +24,7 @@ module Gimite
 
     #1単語から連想された1単語を返す
     def associate(word_str)
-      if strs = @assoc_word_map[word_str]
+      if (strs = @assoc_word_map[word_str])
         strs.sample
       else
         nil
