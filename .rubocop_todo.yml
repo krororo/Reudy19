@@ -58,13 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'lib/reudy/michiru.rb'
-    - 'lib/reudy/word_searcher.rb'
-
 # Offense count: 34
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
