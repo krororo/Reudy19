@@ -34,7 +34,7 @@ module Gimite
     # 設定をファイルからロード
     def loadSettings
       file = Kernel.open(@settingPath)
-      @settings = Hash.new
+      @settings = {}
       file.each_line do |line|
         ss = line.chop.split(/\t/, 2)
         @settings[ss[0]] = ss[1]
