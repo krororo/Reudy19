@@ -13,7 +13,7 @@ module Gimite
   opt = OptionParser.new
 
   directory = 'public'
-  opt.on('-d DIRECTORY') { |v| directory = v; p v }
+  opt.on('-d DIRECTORY') { |v| directory = v }
 
   db = 'pstore'
   opt.on('--db DB_TYPE') { |v| db = v }

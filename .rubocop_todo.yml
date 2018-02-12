@@ -58,13 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'irc_reudy.rb'
-
 # Offense count: 123
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
