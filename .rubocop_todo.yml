@@ -58,12 +58,6 @@ Security/YAMLLoad:
     - 'lib/reudy/reudy.rb'
     - 'lib/reudy/wordset.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/BlockComments:
-  Exclude:
-    - 'lib/reudy/similar_searcher.rb'
-
 # Offense count: 2
 Style/CommentedKeyword:
   Exclude:

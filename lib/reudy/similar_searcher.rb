@@ -11,22 +11,21 @@ require $REUDY_DIR + '/message_log'
 
 module Gimite
   # 類似発言検索器。
+  #
+  # 文尾@compLen文字が1文字違いの発言を類似発言とする。
+  # ただし、ひらがなと一部の記号のみが対象。
+  # @tailMapは、「文尾@compLen文字と、そこから任意の1文字を抜いた物」をキーとし、
+  # 発言番号の配列を値とする。
+  # 例えば、10行目が「答えが分かりませんでした。」という発言なら、
+  #   @tailMap["ませんでした"].include?(10)
+  #   @tailMap["せんでした"].include?(10)
+  #   @tailMap["まんでした"].include?(10)
+  #   @tailMap["ませでした"].include?(10)
+  #   @tailMap["ませんした"].include?(10)
+  #   @tailMap["ませんでた"].include?(10)
+  #   @tailMap["ませんでし"].include?(10)
+  # は全てtrueになる。これを使って「文尾が同じor1文字違いの発言」を探す。
   class SimilarSearcher
-=begin
-    文尾@compLen文字が1文字違いの発言を類似発言とする。
-    ただし、ひらがなと一部の記号のみが対象。
-    @tailMapは、「文尾@compLen文字と、そこから任意の1文字を抜いた物」をキーとし、
-    発言番号の配列を値とする。
-    例えば、10行目が「答えが分かりませんでした。」という発言なら、
-      @tailMap["ませんでした"].include?(10)
-      @tailMap["せんでした"].include?(10)
-      @tailMap["まんでした"].include?(10)
-      @tailMap["ませでした"].include?(10)
-      @tailMap["ませんした"].include?(10)
-      @tailMap["ませんでた"].include?(10)
-      @tailMap["ませんでし"].include?(10)
-    は全てtrueになる。これを使って「文尾が同じor1文字違いの発言」を探す。
-=end
     include Gimite
 
     def initialize(fileName, log, db)
